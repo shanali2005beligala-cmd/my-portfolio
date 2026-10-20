@@ -1,326 +1,260 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shanali — Undefined</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#f0efe9;--fg:#171714;--red:#ff3b27;--line:#b9b8b0;
-  --panel:#e5e4dd;--inverse:#171714;--inverse-text:#f0efe9;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,Arial,sans-serif;cursor:none}
-a{color:inherit;text-decoration:none}
-button{font:inherit}
-::selection{background:var(--red);color:white}
-.cursor{position:fixed;z-index:99;pointer-events:none;width:12px;height:12px;background:var(--red);border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:multiply}
-.wrap{width:min(1400px,92%);margin:auto}
-.mono{font-family:"DM Mono",monospace;text-transform:uppercase;letter-spacing:.04em}
-header{height:70px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--fg)}
-.brand{font-family:"Archivo Black",sans-serif;font-size:1.25rem;letter-spacing:-1px}
-.brand span{color:var(--red)}
-.header-right{display:flex;gap:28px;align-items:center;font-size:.75rem;font-weight:700;text-transform:uppercase}
-.header-right a:hover{color:var(--red)}
-.clock{font-family:"DM Mono",monospace;font-size:.72rem}
-.menu-btn{border:1px solid var(--fg);background:none;padding:9px 12px;text-transform:uppercase;font-size:.7rem;cursor:pointer}
-.menu-btn:hover{background:var(--fg);color:var(--bg)}
-.hero{padding:50px 0 30px}
-.hero-label{display:flex;justify-content:space-between;gap:15px;font-size:.7rem}
-.hero-label span:last-child{color:#77766f;text-align:right}
-.hero-title{margin:35px 0 20px;font-family:"Archivo Black",sans-serif;font-size:clamp(5rem,16.5vw,15.8rem);line-height:.76;letter-spacing:-.09em;text-transform:uppercase}
-.hero-title .row{display:block}
-.hero-title .offset{padding-left:16%}
-.hero-title .outline{color:transparent;-webkit-text-stroke:2px var(--fg)}
-.hero-title .red{color:var(--red)}
-.hero-under{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:end;border-top:1px solid var(--fg);padding-top:22px;margin-top:35px}
-.hero-under p{font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.55;max-width:500px;margin:0;font-weight:500}
-.hero-under .right{justify-self:end;max-width:270px;font-size:.75rem;line-height:1.9}
-.down{display:inline-block;margin-top:12px;background:var(--red);padding:12px 18px;color:white;font-weight:800;text-transform:uppercase;font-size:.72rem;transition:transform .2s}
-.down:hover{transform:translate(4px,-4px)}
-.ticker{background:var(--red);color:white;overflow:hidden;padding:15px 0;margin:40px 0 0}
-.ticker-inner{display:flex;width:max-content;animation:scroll 25s linear infinite}
-.ticker span{font-family:"Archivo Black",sans-serif;font-size:1.4rem;white-space:nowrap;padding:0 22px}
-@keyframes scroll{to{transform:translateX(-50%)}}
-
-.section{padding:95px 0;border-bottom:1px solid var(--fg)}
-.section-head{display:grid;grid-template-columns:100px 1fr;gap:22px;margin-bottom:45px}
-.num{font-family:"DM Mono",monospace;font-size:.8rem;color:var(--red);padding-top:9px}
-.section h2{font-family:"Archivo Black",sans-serif;font-size:clamp(2.7rem,7vw,6.4rem);line-height:.9;letter-spacing:-.07em;text-transform:uppercase;margin:0}
-.section h2 em{font-style:normal;color:var(--red)}
-.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:9%;align-items:start}
-.about-copy{font-size:clamp(1.2rem,2.3vw,2rem);line-height:1.45;font-weight:500}
-.about-copy strong{background:var(--red);color:white;padding:0 5px;font-weight:600}
-.about-notes{border-top:1px solid var(--fg)}
-.note{display:grid;grid-template-columns:110px 1fr;gap:15px;padding:19px 0;border-bottom:1px solid var(--line)}
-.note .mono{font-size:.65rem;color:#77766f;padding-top:5px}
-.note p{margin:0;font-size:.9rem;line-height:1.7}
-.note strong{font-weight:800}
-
-.manifesto{margin-top:55px;background:var(--inverse);color:var(--inverse-text);padding:clamp(25px,5vw,65px);position:relative;overflow:hidden}
-.manifesto .mono{font-size:.7rem;color:var(--red)}
-.manifesto blockquote{font-family:"Archivo Black",sans-serif;text-transform:uppercase;font-size:clamp(2.2rem,6.3vw,6rem);letter-spacing:-.07em;line-height:.98;margin:30px 0 20px;max-width:950px}
-.manifesto blockquote span{color:var(--red)}
-.manifesto .foot{font-size:.7rem;color:#aaa9a1}
-
-.work-list{border-top:2px solid var(--fg)}
-.work-item{display:grid;grid-template-columns:75px 1fr 180px 35px;align-items:center;gap:20px;padding:30px 8px;border-bottom:1px solid var(--fg);transition:background .25s,padding .25s;position:relative}
-.work-item:hover{background:var(--red);color:white;padding-left:20px;padding-right:20px}
-.work-item:hover .work-type{color:white}
-.work-num{font-family:"DM Mono",monospace;font-size:.75rem}
-.work-name{font-family:"Archivo Black",sans-serif;font-size:clamp(1.7rem,4.3vw,4rem);letter-spacing:-.06em;text-transform:uppercase}
-.work-type{font-family:"DM Mono",monospace;font-size:.68rem;color:#77766f}
-.work-arrow{font-size:1.8rem;text-align:right}
-.work-item:hover .work-num{color:white}
-.work-note{font-size:.8rem;line-height:1.7;color:#77766f;margin-top:20px}
-
-.marquee-big{padding:55px 0;overflow:hidden}
-.marquee-big div{white-space:nowrap;font-family:"Archivo Black",sans-serif;text-transform:uppercase;font-size:clamp(3.5rem,10vw,9rem);letter-spacing:-.08em;line-height:1.1}
-.marquee-big div:nth-child(2){color:transparent;-webkit-text-stroke:1.5px var(--fg);padding-left:17%}
-
-.skill-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.skill-layout p{font-size:1rem;line-height:1.8;color:#77766f;max-width:400px}
-.skill-grid{display:flex;gap:8px;flex-wrap:wrap;align-content:start}
-.skill{border:1px solid var(--fg);padding:12px 15px;font-size:.75rem;font-weight:700;transition:all .2s}
-.skill:hover{background:var(--fg);color:var(--bg);transform:translateY(-3px)}
-.skill.red{background:var(--red);color:white;border-color:var(--red)}
-
-.contact{background:var(--red);color:white;padding:clamp(35px,7vw,90px);margin:70px 0 0}
-.contact .mono{font-size:.7rem}
-.contact h2{font-family:"Archivo Black",sans-serif;font-size:clamp(3.4rem,10vw,9.5rem);letter-spacing:-.09em;line-height:.83;text-transform:uppercase;margin:35px 0}
-.contact-bottom{display:flex;justify-content:space-between;align-items:end;gap:25px;border-top:1px solid #ffffff75;padding-top:20px}
-.contact-bottom p{font-size:.9rem;line-height:1.8;max-width:390px;margin:0}
-.contact-btn{background:var(--bg);color:var(--fg);padding:16px 20px;font-weight:800;font-size:.8rem;text-transform:uppercase;white-space:nowrap}
-.contact-btn:hover{background:var(--fg);color:white}
-footer{display:flex;justify-content:space-between;gap:15px;padding:24px 0 30px;font-size:.68rem}
-footer .mono{color:#77766f}
-.reveal{opacity:0;transform:translateY(25px);transition:opacity .65s,transform .65s}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-@media(max-width:700px){
-  body{cursor:auto}.cursor{display:none}
-  .wrap{width:90%}
-  .header-right{gap:12px}.header-right>a{display:none}
-  .clock{font-size:.62rem}
-  .hero{padding-top:35px}
-  .hero-title{font-size:clamp(4.4rem,17vw,8rem);margin-top:50px}
-  .hero-title .offset{padding-left:7%}
-  .hero-under{grid-template-columns:1fr;gap:15px}
-  .hero-under .right{justify-self:start}
-  .section{padding:65px 0}
-  .section-head{grid-template-columns:35px 1fr;gap:12px}
-  .about-layout,.skill-layout{grid-template-columns:1fr;gap:30px}
-  .work-item{grid-template-columns:35px 1fr 25px;gap:10px;padding:23px 2px}
-  .work-type{display:none}
-  .work-name{font-size:clamp(1.5rem,7vw,3rem)}
-  .work-item:hover{padding-left:8px;padding-right:8px}
-  .contact{margin-top:35px}
-  .contact-bottom{align-items:start;flex-direction:column}
-  footer{flex-wrap:wrap}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .reveal{opacity:1;transform:none}
-}
-</style>
-</head>
-<body>
-<div class="cursor" id="cursor"></div>
-<div class="wrap">
-<header>
-  <a href="#top" class="brand">SB<span>®</span></a>
-  <div class="header-right">
-    <span class="clock" id="clock">LOCAL TIME / --:--</span>
-    <a href="#about">ABOUT</a>
-    <a href="#work">SELECTED WORK</a>
-    <button class="menu-btn" id="theme">INVERT ↗</button>
-  </div>
-</header>
-
-<main id="top">
-<section class="hero">
-  <div class="hero-label mono">
-    <span>INDEPENDENT THINKER / DEVELOPING DEVELOPER</span>
-    <span>PORTFOLIO NO. 001</span>
-  </div>
-
-  <h1 class="hero-title">
-    <span class="row">SHANALI</span>
-    <span class="row offset outline">IS NOT</span>
-    <span class="row red">A BOX.</span>
-  </h1>
-
-  <div class="hero-under">
-    <p>
-      Computer science student.<br>
-      Creative by nature.<br>
-      <strong>Still becoming.</strong>
-    </p>
-    <div class="right">
-      <div class="mono">A note to the internet</div>
-      I refuse to fit my whole personality into one job title.
-      This is a little look at the person behind the pixels.
-      <br><a href="#about" class="down">Read the fine print ↓</a>
-    </div>
-  </div>
-</section>
-</main>
-</div>
-
-<div class="ticker"><div class="ticker-inner">
-  <span>NOT ONE THING ✳ ALWAYS EVOLVING ✳ MADE OF MANY PARTS ✳ NOT ONE THING ✳ ALWAYS EVOLVING ✳ MADE OF MANY PARTS ✳</span>
-  <span>NOT ONE THING ✳ ALWAYS EVOLVING ✳ MADE OF MANY PARTS ✳ NOT ONE THING ✳ ALWAYS EVOLVING ✳ MADE OF MANY PARTS ✳</span>
-</div></div>
-
-<div class="wrap">
+<!-- ABOUT ME + PHOTO -->
 <section class="section reveal" id="about">
   <div class="section-head">
-    <div class="num">01 / ME</div>
-    <h2>THE SHORT<br>VERSION IS <em>NEVER</em><br>THE WHOLE STORY.</h2>
+    <div class="num">01 / PROFILE</div>
+    <h2>THE PERSON<br>BEHIND THE <em>CODE.</em></h2>
   </div>
 
-  <div class="about-layout">
-    <div class="about-copy">
-      I'm Shanali. I'm studying computer science, figuring out what I want to build, and finding my own way of doing things. <strong>There's more going on here</strong> than a degree, a list of skills, or a LinkedIn headline.
+  <div class="profile-layout">
+    <div class="portrait">
+      <img src="images/shanali.jpg" alt="Portrait of Shanali"
+           onerror="this.style.display='none'">
+      <div class="portrait-placeholder">
+        <span>YOUR PHOTO GOES HERE</span>
+        <strong>SHANALI<br>BELIGALA<span class="red-dot">.</span></strong>
+        <small>COMPUTER SCIENCE · SFU</small>
+      </div>
+      <span class="portrait-index mono">FIG. 01 — INTRODUCTION</span>
     </div>
-    <div class="about-notes">
-      <div class="note"><span class="mono">THE LOGIC</span><p><strong>Technology.</strong> Learning to turn problems into solutions, ideas into code, and concepts into real things.</p></div>
-      <div class="note"><span class="mono">THE HUMAN</span><p><strong>My people.</strong> Family, friends, shared moments, and all the little things that make a life feel like yours.</p></div>
-      <div class="note"><span class="mono">THE CONTEXT</span><p><strong>My background.</strong> I'm Sri Lankan Canadian. That's one part of my perspective, not the whole definition of me.</p></div>
-      <div class="note"><span class="mono">THE PLAN</span><p><strong>Keep going.</strong> Learn more, try things, build things, and leave room for surprises.</p></div>
-    </div>
-  </div>
 
-  <div class="manifesto">
-    <div class="mono">A PERSONAL MANIFESTO / 001</div>
-    <blockquote>
-      I DON'T NEED TO HAVE IT ALL FIGURED OUT TO <span>MAKE SOMETHING REAL.</span>
-    </blockquote>
-    <div class="foot mono">CURRENT STATUS: LEARNING IN PUBLIC</div>
+    <div class="profile-copy">
+      <div class="mono red-label">A LITTLE ABOUT ME ↘</div>
+      <h3>Hey, I'm Shanali.</h3>
+      <p>
+        I'm a Computer Science student at Simon Fraser University
+        interested in technology, creative problem-solving, and
+        building things that bring ideas to life.
+      </p>
+      <p>
+        I'm also a Sri Lankan Canadian, a lifelong learner, and
+        someone who values family, friends, and being involved
+        in my community. I'm exploring where my technical skills
+        can take me, one project at a time.
+      </p>
+      <div class="profile-facts">
+        <div><span class="mono">01 / CURRENTLY</span><strong>Studying Computer Science</strong></div>
+        <div><span class="mono">02 / UNIVERSITY</span><strong>Simon Fraser University</strong></div>
+        <div><span class="mono">03 / INTERESTS</span><strong>Software · UX · Creative tech</strong></div>
+      </div>
+      <a class="down" href="#projects">EXPLORE MY PROJECTS ↘</a>
+    </div>
   </div>
 </section>
 
-<section class="section reveal" id="work">
+<!-- TECHNICAL PROJECTS -->
+<section class="section reveal" id="projects">
   <div class="section-head">
-    <div class="num">02 / WORK</div>
-    <h2>LESS TALK.<br><em>MORE MAKING.</em></h2>
+    <div class="num">02 / PROJECTS</div>
+    <h2>BUILT WITH<br><em>CURIOSITY.</em></h2>
   </div>
-  <p style="max-width:560px;font-size:1rem;line-height:1.8;margin:0 0 35px;color:#77766f">
-    A place for the things I build. The list will change as I learn, experiment, and create new work.
+
+  <p class="section-intro">
+    A collection of technical projects, experiments, and things
+    I've created while developing my skills.
   </p>
 
-  <div class="work-list">
-    <a class="work-item" href="#top">
-      <span class="work-num">01</span><span class="work-name">This website</span><span class="work-type">HTML / CSS / JS</span><span class="work-arrow">↗</span>
-    </a>
-    <a class="work-item" href="#work">
-      <span class="work-num">02</span><span class="work-name">Next project</span><span class="work-type">IN PROGRESS</span><span class="work-arrow">↗</span>
-    </a>
-    <a class="work-item" href="#work">
-      <span class="work-num">03</span><span class="work-name">Experiments</span><span class="work-type">LEARNING</span><span class="work-arrow">↗</span>
-    </a>
-    <a class="work-item" href="#work">
-      <span class="work-num">04</span><span class="work-name">Coming soon</span><span class="work-type">TBD</span><span class="work-arrow">↗</span>
-    </a>
+  <div class="project-grid">
+    <article class="project">
+      <div class="project-visual">
+        <span class="visual-tag">01 / WEB DEVELOPMENT</span>
+        <div class="shape"></div>
+        <span class="symbol">⌘</span>
+      </div>
+      <div class="project-body">
+        <div class="project-meta"><span>PERSONAL WEBSITE</span><span>HTML / CSS / JS</span></div>
+        <h3>My Portfolio</h3>
+        <p>
+          A custom-designed portfolio exploring web development,
+          responsive layouts, interactive elements, and personal branding.
+        </p>
+        <div class="project-bottom">
+          <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <a class="project-link" href="YOUR_GITHUB_REPOSITORY_URL" target="_blank" rel="noopener" aria-label="View portfolio source code">↗</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-visual">
+        <span class="visual-tag">02 / YOUR NEXT PROJECT</span>
+        <div class="shape"></div>
+        <span class="symbol">{ }</span>
+      </div>
+      <div class="project-body">
+        <div class="project-meta"><span>IN DEVELOPMENT</span><span>COMING SOON</span></div>
+        <h3>Project Two</h3>
+        <p>
+          Replace this with a programming project, the problem it solves,
+          the technologies you used, and what you learned.
+        </p>
+        <div class="project-bottom">
+          <div class="tags"><span>Your tech stack</span></div>
+          <a class="project-link" href="YOUR_PROJECT_URL" target="_blank" rel="noopener" aria-label="View project two">↗</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="project-visual">
+        <span class="visual-tag">03 / YOUR NEXT BUILD</span>
+        <div class="shape"></div>
+        <span class="symbol">✳</span>
+      </div>
+      <div class="project-body">
+        <div class="project-meta"><span>PERSONAL PROJECT</span><span>COMING SOON</span></div>
+        <h3>Project Three</h3>
+        <p>
+          Showcase another real project, such as an application,
+          a useful tool, or a creative coding experiment.
+        </p>
+        <div class="project-bottom">
+          <div class="tags"><span>Your tech stack</span></div>
+          <a class="project-link" href="YOUR_PROJECT_URL" target="_blank" rel="noopener" aria-label="View project three">↗</a>
+        </div>
+      </div>
+    </article>
   </div>
-  <p class="work-note">These are starter entries, not finished portfolio projects. Replace them with real work and add links to your GitHub repositories or live demos.</p>
 </section>
 
-<div class="marquee-big reveal">
-  <div>BUILD. BREAK. LEARN.</div>
-  <div>REPEAT. REIMAGINE.</div>
-</div>
-
-<section class="section reveal" id="skills">
+<!-- VOLUNTEERING & COMMUNITY -->
+<section class="section reveal" id="community">
   <div class="section-head">
-    <div class="num">03 / TOOLS</div>
-    <h2>WHAT'S IN<br>THE <em>TOOLBOX?</em></h2>
+    <div class="num">03 / COMMUNITY</div>
+    <h2>GOOD WORK<br>BEYOND THE <em>SCREEN.</em></h2>
   </div>
+
+  <p class="section-intro">
+    Giving back, supporting causes, and contributing to my community
+    are important parts of my journey, too.
+  </p>
+
+  <div class="community-list">
+    <article class="community-item">
+      <div class="community-icon">01</div>
+      <div class="community-info">
+        <span class="mono">2022 — PRESENT</span>
+        <h3>Adopt-a-Free-Little-Library</h3>
+        <p>City of Coquitlam</p>
+        <p class="detail">
+          Community volunteering supporting a local free little library initiative.
+        </p>
+      </div>
+      <span class="community-arrow">↗</span>
+    </article>
+
+    <article class="community-item">
+      <div class="community-icon">02</div>
+      <div class="community-info">
+        <span class="mono">2022 — PRESENT</span>
+        <h3>Adopt-a-SPOT</h3>
+        <p>City of Port Coquitlam</p>
+        <p class="detail">
+          Community involvement through the Adopt-a-SPOT program.
+        </p>
+      </div>
+      <span class="community-arrow">↗</span>
+    </article>
+
+    <article class="community-item">
+      <div class="community-icon">03</div>
+      <div class="community-info">
+        <span class="mono">COMMUNITY FUNDRAISING</span>
+        <h3>BC SPCA Bottle Drive</h3>
+        <p>Fundraising for animal welfare</p>
+        <p class="detail">
+          Coordinated a community bottle drive, collecting returnable
+          containers and raising $500 to support the BC SPCA.
+        </p>
+      </div>
+      <div class="impact"><strong>$500</strong><span>RAISED</span></div>
+    </article>
+
+    <article class="community-item">
+      <div class="community-icon">04</div>
+      <div class="community-info">
+        <span class="mono">PERSONAL FUNDRAISING</span>
+        <h3>BC Cancer Foundation</h3>
+        <p>Supporting cancer research and patient care</p>
+        <p class="detail">
+          Organized a personal fundraising campaign using community
+          outreach and social media to raise $2,550.
+        </p>
+      </div>
+      <div class="impact"><strong>$2,550</strong><span>RAISED</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="section reveal" id="certifications">
+  <div class="section-head">
+    <div class="num">04 / LEARNING</div>
+    <h2>SKILLS THAT<br>KEEP <em>GROWING.</em></h2>
+  </div>
+
+  <div class="credential-grid">
+    <article class="credential">
+      <span class="mono">01 / JUNE 2026</span>
+      <h3>Google UX Design</h3>
+      <p>Google UX Design Professional Certificate</p>
+      <span class="credential-mark">UX</span>
+    </article>
+
+    <article class="credential">
+      <span class="mono">02 / AUGUST 2022</span>
+      <h3>Autism Awareness</h3>
+      <p>Autism Awareness for Recreation Leaders Certificate</p>
+      <span class="credential-mark">AA</span>
+    </article>
+
+    <article class="credential">
+      <span class="mono">03 / APRIL 2026</span>
+      <h3>FOODSAFE Level 1</h3>
+      <p>Food safety certification</p>
+      <span class="credential-mark">FS</span>
+    </article>
+  </div>
+
   <div class="skill-layout">
-    <p>
-      I'm building my technical toolkit one concept at a time. I care about understanding what I'm doing, not just collecting names to put on a page.
-    </p>
+    <div>
+      <div class="mono red-label">MY TOOLKIT</div>
+      <h3 class="toolkit-heading">What I'm learning and bringing to the table.</h3>
+      <p class="toolkit-description">
+        A mix of technical learning, creative thinking, and skills
+        developed through my studies and community involvement.
+      </p>
+    </div>
     <div class="skill-grid">
       <span class="skill red">Problem solving</span>
-      <span class="skill">HTML</span>
-      <span class="skill">CSS</span>
+      <span class="skill">HTML & CSS</span>
       <span class="skill">JavaScript</span>
       <span class="skill">GitHub</span>
-      <span class="skill">Creative thinking</span>
-      <span class="skill">Curiosity</span>
-      <span class="skill">Learning in progress</span>
+      <span class="skill">Google UX Design</span>
+      <span class="skill">Communication</span>
+      <span class="skill">Teamwork</span>
+      <span class="skill">English & Sinhala</span>
     </div>
   </div>
-  <p class="work-note">Keep only the skills you can confidently demonstrate or discuss.</p>
+  <p class="work-note">
+    Technical skills should reflect what you have actually learned.
+    Add programming languages, frameworks, and tools as you gain experience.
+  </p>
 </section>
 
+<!-- RESUME & CONTACT -->
 <section class="contact reveal" id="contact">
-  <div class="mono">04 / END OF PAGE. NOT END OF STORY.</div>
-  <h2>HAVE A<br>GOOD<br><span style="color:#171714">IDEA?</span></h2>
+  <div class="mono">05 / LET'S CONNECT</div>
+  <h2>CURIOUS<br>ABOUT WHAT'S<br><span style="color:#171714">NEXT?</span></h2>
   <div class="contact-bottom">
-    <p>I'm interested in learning, building, and connecting with people who are doing interesting things. Let's see what happens.</p>
-    <a class="contact-btn" href="mailto:YOUR_EMAIL_HERE">GET IN TOUCH ↗</a>
+    <p>
+      Interested in my projects, community involvement, or potential
+      opportunities? I'd love to connect.
+    </p>
+    <div class="contact-actions">
+      <a class="contact-btn" href="mailto:shanali2005beligala@gmail.com">EMAIL ME ↗</a>
+      <a class="contact-btn secondary" href="YOUR_LINKEDIN_URL" target="_blank" rel="noopener">LINKEDIN ↗</a>
+      <a class="contact-btn secondary" href="YOUR_GITHUB_PROFILE_URL" target="_blank" rel="noopener">GITHUB ↗</a>
+    </div>
   </div>
 </section>
-
-<footer>
-  <span class="brand">SB<span style="color:var(--red)">®</span></span>
-  <span class="mono">A WORK IN PROGRESS — LIKE EVERYONE ELSE</span>
-  <a class="mono" href="#top">BACK TO THE TOP ↑</a>
-</footer>
-</div>
-
-<script>
-const cursor=document.getElementById("cursor");
-if(window.matchMedia("(pointer:fine)").matches){
-  window.addEventListener("mousemove",e=>{
-    cursor.style.left=e.clientX+"px";
-    cursor.style.top=e.clientY+"px";
-  });
-}
-
-document.getElementById("theme").addEventListener("click",()=>{
-  const root=document.documentElement;
-  const active=root.dataset.inverted==="true";
-  if(active){
-    root.style.setProperty("--bg","#f0efe9");
-    root.style.setProperty("--fg","#171714");
-    root.style.setProperty("--line","#b9b8b0");
-    root.style.setProperty("--panel","#e5e4dd");
-    root.dataset.inverted="false";
-  }else{
-    root.style.setProperty("--bg","#171714");
-    root.style.setProperty("--fg","#f0efe9");
-    root.style.setProperty("--line","#55544f");
-    root.style.setProperty("--panel","#252520");
-    root.dataset.inverted="true";
-  }
-});
-
-function updateClock(){
-  const now=new Date();
-  document.getElementById("clock").textContent=
-    "LOCAL TIME / "+now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-}
-updateClock();
-setInterval(updateClock,30000);
-
-if("IntersectionObserver" in window){
-  const observer=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },{threshold:.1});
-  document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-}else{
-  document.querySelectorAll(".reveal").forEach(el=>el.classList.add("visible"));
-}
-</script>
-</body>
-</html>
