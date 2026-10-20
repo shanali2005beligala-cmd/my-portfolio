@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shanali | Digital World</title>
+<style>
+:root {
+  --bg: #100d20;
+  --lavender: #c9b6ff;
+  --pink: #ffb9e8;
+  --text: #f7f1ff;
+  --muted: #c0b5d8;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Trebuchet MS", sans-serif;
+}
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 17px 7%;
+  background: #100d20ed;
+  border-bottom: 1px solid #ffffff18;
+}
+.logo { color: var(--lavender); font-weight: bold; }
+nav a, a { color: var(--lavender); text-decoration: none; }
+nav .links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px; }
+.hero {
+  min-height: 76vh;
+  padding: 75px 20px 55px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 85%, #4a327a, transparent 55%);
+}
+#stars { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-content { position: relative; z-index: 1; }
+.eyebrow { color: var(--pink); letter-spacing: 3px; font-size: 12px; }
+h1 { font-size: clamp(40px, 8vw, 78px); margin: 20px 0; }
+h1 span { color: var(--lavender); }
+.intro { max-width: 570px; margin: auto; color: var(--muted); line-height: 1.8; }
+.world {
+  display: flex; justify-content: center; align-items: end;
+  gap: 16px; flex-wrap: wrap; margin: 45px auto 30px;
+}
+.island {
+  width: 145px; min-height: 135px; padding: 17px 8px;
+  border: 2px solid #d9c9ff70; border-radius: 48% 48% 20px 20px;
+  background: linear-gradient(#7054a8, #352553);
+  box-shadow: 0 10px 0 #201735;
+  color: white; cursor: pointer; font: inherit;
+  transition: transform .2s, background .2s;
+}
+.island:nth-child(2) { transform: translateY(-18px); }
+.island:hover { transform: translateY(-12px); background: #795caa; }
+.island .emoji { display: block; font-size: 35px; margin-bottom: 10px; }
+.island strong { display: block; }
+.island small { color: #e3d8ff; display: block; margin-top: 7px; }
+.hint { color: var(--muted); font-size: 12px; }
+section { padding: 65px 8%; scroll-margin-top: 65px; }
+section h2 { color: var(--lavender); font-size: 30px; }
+.section-intro { color: var(--muted); line-height: 1.8; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 18px; margin-top: 25px; }
+.card {
+  background: #211a36; border: 1px solid #bca7ed30;
+  border-radius: 15px; padding: 23px;
+}
+.card h3 { margin-top: 0; }
+.card p { color: var(--muted); line-height: 1.7; }
+.tag {
+  display: inline-block; padding: 6px 10px; margin: 4px;
+  background: #4a3868; border-radius: 20px; font-size: 12px;
+}
+.skills { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
+.cta {
+  display: inline-block; margin-top: 20px; padding: 12px 19px;
+  background: var(--lavender); color: #201632;
+  border-radius: 9px; font-weight: bold;
+}
+footer { text-align: center; padding: 28px; color: var(--muted); border-top: 1px solid #ffffff18; }
+#message { color: var(--pink); min-height: 22px; }
+@media(max-width:500px) {
+ nav { align-items: flex-start; flex-direction: column; }
+ .island { width: 125px; }
+ section { padding: 48px 6%; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">✦ SHANALI.DEV</div>
+  <div class="links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="stars"></canvas>
+  <div class="hero-content">
+    <div class="eyebrow">WELCOME TO MY LITTLE UNIVERSE</div>
+    <h1>Hi, I'm <span>Shanali.</span> ✨</h1>
+    <p class="intro">An SFU student exploring the world of technology, one project at a time. Welcome to my corner of the internet.</p>
+
+    <div class="world">
+      <button class="island" onclick="go('about')">
+        <span class="emoji">🏡</span><strong>About Me</strong><small>My story</small>
+      </button>
+      <button class="island" onclick="go('projects')">
+        <span class="emoji">🔮</span><strong>Projects</strong><small>Things I build</small>
+      </button>
+      <button class="island" onclick="go('skills')">
+        <span class="emoji">🌙</span><strong>My Skills</strong><small>What I learn</small>
+      </button>
+      <button class="island" onclick="go('contact')">
+        <span class="emoji">💌</span><strong>Contact</strong><small>Say hello</small>
+      </button>
+    </div>
+    <p class="hint">✧ Pick an island to explore ✧</p>
+    <p id="message" aria-live="polite"></p>
+  </div>
+</header>
+
+<section id="about">
+  <div class="eyebrow">A LITTLE ABOUT ME</div>
+  <h2>Getting to know me 🌷</h2>
+  <p class="section-intro">I'm a student at Simon Fraser University interested in growing my computer science knowledge and creating things that make technology more useful and fun. I'm working towards a future in software development.</p>
+  <div class="cards">
+    <article class="card">
+      <h3>🎓 Education</h3>
+      <p>Simon Fraser University<br>Current program: General Studies<br>Exploring a future in Computing Science.</p>
+    </article>
+    <article class="card">
+      <h3>🌱 Currently growing</h3>
+      <p>Building projects, developing technical skills, and preparing for future software internship and co-op opportunities.</p>
+    </article>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="eyebrow">MY CREATIVE CORNER</div>
+  <h2>Little things I've built 💜</h2>
+  <p class="section-intro">This is where my projects will live. I'll add my own work here as I build it.</p>
+  <div class="cards">
+    <article class="card">
+      <h3>🌌 My Interactive Portfolio</h3>
+      <p>A lavender-inspired personal website with clickable islands, animated stars, and a little digital world.</p>
+      <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+      <p><strong>Status:</strong> First project in progress!</p>
+    </article>
+    <article class="card">
+      <h3>✨ Future Project</h3>
+      <p>I'll add another project here with a description of the problem, my solution, and what I learned.</p>
+      <span class="tag">Coming soon</span>
+    </article>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="eyebrow">MY TOOLKIT</div>
+  <h2>Skills & learning ☁️</h2>
+  <p class="section-intro">My technical toolkit will grow as I complete coursework and build more projects.</p>
+  <div class="skills">
+    <span class="tag">HTML</span><span class="tag">CSS</span>
+    <span class="tag">JavaScript — learning</span>
+    <span class="tag">Problem solving</span><span class="tag">GitHub</span>
+  </div>
+  <p class="section-intro">I'll update this section to reflect my actual skills and experience.</p>
+</section>
+
+<section id="contact">
+  <div class="eyebrow">LET'S CONNECT</div>
+  <h2>Send a little hello 💌</h2>
+  <p class="section-intro">Interested in connecting about projects, technology, or future opportunities? Find me on LinkedIn or GitHub.</p>
+  <a class="cta" href="https://github.com/" target="_blank" rel="noopener">Explore GitHub ↗</a>
+  <a class="cta" href="https://www.linkedin.com/" target="_blank" rel="noopener">Find me on LinkedIn ↗</a>
+  <p class="section-intro">Replace these links with your own profile URLs before sharing your portfolio.</p>
+</section>
+
+<footer>Made with 💜 and a little bit of curiosity · © 2026 Shanali</footer>
+
+<script>
+function go(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  document.getElementById('message').textContent =
+    '✦ Exploring: ' + id.charAt(0).toUpperCase() + id.slice(1) + ' ✦';
+}
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let stars = [];
+function setup() {
+  const r = canvas.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = r.width * dpr;
+  canvas.height = r.height * dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  stars = Array.from({length:75},()=>({
+    x:Math.random()*r.width,y:Math.random()*r.height,
+    size:Math.random()*2+.5,phase:Math.random()*6.28
+  }));
+}
+function draw(t) {
+  const r = canvas.getBoundingClientRect();
+  ctx.clearRect(0,0,r.width,r.height);
+  stars.forEach(s=>{
+    ctx.globalAlpha=.35+.65*(.5+.5*Math.sin(t*.001+s.phase));
+    ctx.fillStyle='#eee4ff';
+    ctx.fillRect(s.x,s.y,s.size,s.size);
+  });
+  ctx.globalAlpha=1;
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize',setup);
+setup();
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
