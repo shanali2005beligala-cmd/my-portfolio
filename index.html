@@ -2,230 +2,871 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shanali | Digital World</title>
-<style>
-:root {
-  --bg: #100d20;
-  --lavender: #c9b6ff;
-  --pink: #ffb9e8;
-  --text: #f7f1ff;
-  --muted: #c0b5d8;
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Trebuchet MS", sans-serif;
-}
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 17px 7%;
-  background: #100d20ed;
-  border-bottom: 1px solid #ffffff18;
-}
-.logo { color: var(--lavender); font-weight: bold; }
-nav a, a { color: var(--lavender); text-decoration: none; }
-nav .links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px; }
-.hero {
-  min-height: 76vh;
-  padding: 75px 20px 55px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  background: radial-gradient(ellipse at 50% 85%, #4a327a, transparent 55%);
-}
-#stars { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero-content { position: relative; z-index: 1; }
-.eyebrow { color: var(--pink); letter-spacing: 3px; font-size: 12px; }
-h1 { font-size: clamp(40px, 8vw, 78px); margin: 20px 0; }
-h1 span { color: var(--lavender); }
-.intro { max-width: 570px; margin: auto; color: var(--muted); line-height: 1.8; }
-.world {
-  display: flex; justify-content: center; align-items: end;
-  gap: 16px; flex-wrap: wrap; margin: 45px auto 30px;
-}
-.island {
-  width: 145px; min-height: 135px; padding: 17px 8px;
-  border: 2px solid #d9c9ff70; border-radius: 48% 48% 20px 20px;
-  background: linear-gradient(#7054a8, #352553);
-  box-shadow: 0 10px 0 #201735;
-  color: white; cursor: pointer; font: inherit;
-  transition: transform .2s, background .2s;
-}
-.island:nth-child(2) { transform: translateY(-18px); }
-.island:hover { transform: translateY(-12px); background: #795caa; }
-.island .emoji { display: block; font-size: 35px; margin-bottom: 10px; }
-.island strong { display: block; }
-.island small { color: #e3d8ff; display: block; margin-top: 7px; }
-.hint { color: var(--muted); font-size: 12px; }
-section { padding: 65px 8%; scroll-margin-top: 65px; }
-section h2 { color: var(--lavender); font-size: 30px; }
-.section-intro { color: var(--muted); line-height: 1.8; }
-.cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 18px; margin-top: 25px; }
-.card {
-  background: #211a36; border: 1px solid #bca7ed30;
-  border-radius: 15px; padding: 23px;
-}
-.card h3 { margin-top: 0; }
-.card p { color: var(--muted); line-height: 1.7; }
-.tag {
-  display: inline-block; padding: 6px 10px; margin: 4px;
-  background: #4a3868; border-radius: 20px; font-size: 12px;
-}
-.skills { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
-.cta {
-  display: inline-block; margin-top: 20px; padding: 12px 19px;
-  background: var(--lavender); color: #201632;
-  border-radius: 9px; font-weight: bold;
-}
-footer { text-align: center; padding: 28px; color: var(--muted); border-top: 1px solid #ffffff18; }
-#message { color: var(--pink); min-height: 22px; }
-@media(max-width:500px) {
- nav { align-items: flex-start; flex-direction: column; }
- .island { width: 125px; }
- section { padding: 48px 6%; }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fbf7ff" />
+  <title>Shanali — A Little More About Me</title>
+  <meta name="description" content="Meet Shanali — a computer science student, creative thinker, and aspiring software developer." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fbf8ff;
+      --surface: #ffffff;
+      --text: #282032;
+      --muted: #82768d;
+      --accent: #8c65d9;
+      --accent-dark: #7049bc;
+      --pink: #f5d9e9;
+      --lavender: #e8defc;
+      --border: #eee6f5;
+      --shadow: 0 18px 55px rgba(77, 48, 104, .09);
+    }
+
+    body.dark {
+      --bg: #19151f;
+      --surface: #241e2c;
+      --text: #f8f2ff;
+      --muted: #b5a7c2;
+      --accent: #c2a0ff;
+      --accent-dark: #d4bbff;
+      --pink: #483044;
+      --lavender: #392d4e;
+      --border: #3c3047;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .18);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      transition: background .3s, color .3s;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .container {
+      width: min(1080px, 88%);
+      margin: auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 0;
+      gap: 18px;
+    }
+
+    .logo {
+      font-family: "Manrope", sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -1px;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 23px;
+      font-size: .88rem;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .theme-toggle {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform .25s;
+    }
+
+    .theme-toggle:hover { transform: rotate(-12deg) scale(1.08); }
+
+    .hero {
+      min-height: 570px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+      gap: 50px;
+      padding: 65px 0 90px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--lavender);
+      color: var(--accent-dark);
+      border-radius: 50px;
+      padding: 10px 15px;
+      font-size: .78rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .status-dot {
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background: #7ec99c;
+      box-shadow: 0 0 0 4px rgba(126, 201, 156, .15);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(3.1rem, 7vw, 5.7rem);
+      line-height: 1.02;
+      letter-spacing: -5px;
+      margin-bottom: 23px;
+    }
+
+    .gradient-text {
+      color: var(--accent);
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .hero-description {
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 30px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 14px 21px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: .9rem;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 8px 22px rgba(140, 101, 217, .22);
+    }
+
+    body.dark .btn-primary { color: #24172f; }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .hero-art {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 360px;
+    }
+
+    .blob {
+      position: absolute;
+      width: 290px;
+      height: 310px;
+      background: linear-gradient(145deg, var(--lavender), var(--pink));
+      border-radius: 46% 54% 59% 41% / 42% 43% 57% 58%;
+      animation: morph 9s ease-in-out infinite;
+    }
+
+    @keyframes morph {
+      0%, 100% { border-radius: 46% 54% 59% 41% / 42% 43% 57% 58%; transform: rotate(-4deg); }
+      50% { border-radius: 56% 44% 42% 58% / 53% 58% 42% 47%; transform: rotate(4deg); }
+    }
+
+    .profile-card {
+      z-index: 1;
+      width: 245px;
+      min-height: 260px;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 28px;
+      padding: 27px;
+      box-shadow: var(--shadow);
+      transform: rotate(3deg);
+      transition: transform .3s;
+    }
+
+    .profile-card:hover { transform: rotate(0) translateY(-5px); }
+
+    .profile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .mini-avatar {
+      width: 49px;
+      height: 49px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      background: var(--lavender);
+      font-size: 1.7rem;
+    }
+
+    .sparkle { color: var(--accent); font-size: 1.5rem; }
+
+    .profile-card h3 {
+      font-family: "Manrope", sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: -.7px;
+      margin-bottom: 7px;
+    }
+
+    .profile-card p {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.7;
+    }
+
+    .mini-tags {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .mini-tags span {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 600;
+    }
+
+    .floating-note {
+      position: absolute;
+      z-index: 2;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 13px 16px;
+      box-shadow: var(--shadow);
+      font-size: .82rem;
+      font-weight: 700;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .note-one { top: 34px; right: -3px; }
+    .note-two { bottom: 30px; left: -8px; animation-delay: -2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-9px) rotate(2deg); }
+    }
+
+    section { padding: 75px 0; }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 25px;
+      margin-bottom: 35px;
+    }
+
+    .section-kicker {
+      color: var(--accent);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -2px;
+      line-height: 1.15;
+      margin-bottom: 0;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 360px;
+      font-size: .94rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      padding: 29px;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .about-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .about-card .emoji { font-size: 1.8rem; margin-bottom: 20px; }
+
+    .about-card h3 {
+      font-family: "Manrope", sans-serif;
+      font-size: 1.18rem;
+      margin-bottom: 11px;
+    }
+
+    .about-card p {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: .92rem;
+      margin-bottom: 0;
+    }
+
+    .discover-panel {
+      margin-top: 20px;
+      background: linear-gradient(120deg, var(--lavender), var(--pink));
+      border-radius: 25px;
+      padding: 29px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .discover-panel h3 {
+      font-family: "Manrope", sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 7px;
+    }
+
+    .discover-panel p {
+      margin-bottom: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .discover-panel .btn {
+      background: var(--surface);
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    #funFact {
+      margin-top: 16px;
+      color: var(--accent-dark);
+      font-weight: 700;
+      line-height: 1.7;
+      min-height: 26px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .project-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 24px;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-7px);
+      box-shadow: var(--shadow);
+    }
+
+    .project-art {
+      min-height: 170px;
+      display: grid;
+      place-items: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-art::after {
+      content: "";
+      position: absolute;
+      width: 135px;
+      height: 135px;
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 50%;
+      transition: transform .4s;
+    }
+
+    .project-card:hover .project-art::after { transform: scale(1.4); }
+
+    .art-lilac { background: #e8defc; }
+    .art-pink { background: #f8dfea; }
+    .art-yellow { background: #f8edc9; }
+
+    .project-body { padding: 22px; }
+
+    .project-label {
+      color: var(--accent);
+      font-size: .7rem;
+      letter-spacing: 1.4px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .project-body h3 {
+      font-family: "Manrope", sans-serif;
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .project-body p {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: .88rem;
+      min-height: 69px;
+    }
+
+    .project-link {
+      color: var(--accent-dark);
+      font-size: .87rem;
+      font-weight: 700;
+    }
+
+    .project-link:hover { text-decoration: underline; }
+
+    .project-note {
+      color: var(--muted);
+      font-size: .8rem;
+      line-height: 1.7;
+      margin-top: 20px;
+    }
+
+    .skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 25px;
+    }
+
+    .skill {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 13px 18px;
+      border-radius: 50px;
+      font-size: .88rem;
+      font-weight: 600;
+      transition: background .2s, transform .2s;
+    }
+
+    .skill:hover {
+      background: var(--lavender);
+      transform: translateY(-3px);
+    }
+
+    .contact-box {
+      background: linear-gradient(130deg, var(--lavender), var(--pink));
+      border-radius: 30px;
+      padding: clamp(30px, 6vw, 65px);
+      text-align: center;
+    }
+
+    .contact-box h2 { max-width: 600px; margin: 0 auto 17px; }
+
+    .contact-box p {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 490px;
+      margin: 0 auto 27px;
+    }
+
+    .contact-box .btn {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      padding: 30px 0;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .footer-heart { color: #d778ad; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 760px) {
+      .nav-links { gap: 13px; font-size: .8rem; }
+      .hero { grid-template-columns: 1fr; gap: 25px; padding: 45px 0 55px; }
+      h1 { letter-spacing: -3px; }
+      .hero-art { min-height: 330px; }
+      .blob { width: 260px; height: 275px; }
+      .section-heading { align-items: start; flex-direction: column; }
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-art { min-height: 145px; }
+      .discover-panel { align-items: start; flex-direction: column; }
+      section { padding: 55px 0; }
+    }
+
+    @media (max-width: 430px) {
+      .container { width: 90%; }
+      nav { padding: 19px 0; }
+      .nav-links { gap: 10px; }
+      .nav-links a:first-child { display: none; }
+      .logo { font-size: 1.1rem; }
+      .theme-toggle { width: 39px; height: 39px; }
+      .note-one { right: -3px; }
+      .note-two { left: -4px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<nav>
-  <div class="logo">✦ SHANALI.DEV</div>
-  <div class="links">
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
+  <div class="container">
+    <nav>
+      <a href="#home" class="logo">shanali<span>.</span></a>
+
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Switch colour theme" title="Switch theme">🌙</button>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="status-dot"></span> A little bit of everything</div>
+
+          <h1>
+            Hi, I'm<br />
+            <span class="gradient-text">Shanali.</span>
+          </h1>
+
+          <p class="hero-description">
+            Computer science student, creative thinker, and someone who
+            believes there's always more to discover. I'm building my skills
+            in tech while figuring out all the things I love along the way.
+          </p>
+
+          <div class="button-row">
+            <a href="#projects" class="btn btn-primary">Explore my work <span>↗</span></a>
+            <a href="#about" class="btn btn-secondary">Get to know me ♡</a>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="A playful introduction card">
+          <div class="blob"></div>
+
+          <div class="floating-note note-one">a little creative ✿</div>
+
+          <div class="profile-card">
+            <div class="profile-top">
+              <div class="mini-avatar">🪻</div>
+              <span class="sparkle">✳</span>
+            </div>
+            <h3>More than<br />one thing.</h3>
+            <p>Curious mind. Creative side. Always learning something new.</p>
+            <div class="mini-tags">
+              <span>tech</span>
+              <span>creativity</span>
+              <span>life</span>
+            </div>
+          </div>
+
+          <div class="floating-note note-two">currently growing ♡</div>
+        </div>
+      </section>
+
+      <section id="about" class="reveal">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">The person behind the screen</div>
+            <h2>A few sides of me.</h2>
+          </div>
+          <p class="section-intro">
+            A portfolio can show what I build. Here's a little more about
+            the person building it.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <article class="about-card">
+            <div class="emoji">💻</div>
+            <h3>The problem-solver</h3>
+            <p>
+              I'm studying computer science and learning how to turn ideas
+              into things people can actually use. Every new concept is
+              another opportunity to grow.
+            </p>
+          </article>
+
+          <article class="about-card">
+            <div class="emoji">🎨</div>
+            <h3>The creative side</h3>
+            <p>
+              I enjoy exploring ideas, creating things, and paying attention
+              to the little details that make something feel special.
+            </p>
+          </article>
+
+          <article class="about-card">
+            <div class="emoji">🤍</div>
+            <h3>The people person</h3>
+            <p>
+              Family and friends are a big part of my world. I value the
+              little moments, good conversations, and the people who make
+              ordinary days memorable.
+            </p>
+          </article>
+
+          <article class="about-card">
+            <div class="emoji">🌷</div>
+            <h3>My own perspective</h3>
+            <p>
+              My Sri Lankan Canadian background is one part of my story.
+              My interests, experiences, and ambitions make up the rest.
+              I'm still discovering what all those pieces can become.
+            </p>
+          </article>
+        </div>
+
+        <div class="discover-panel">
+          <div>
+            <h3>Wait, there's more to me 👀</h3>
+            <p>Click below for a little random fact about my world.</p>
+            <div id="funFact" aria-live="polite"></div>
+          </div>
+          <button class="btn" id="discoverBtn">Discover a side of me ✨</button>
+        </div>
+      </section>
+
+      <section id="projects" class="reveal">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Things I'm creating</div>
+            <h2>My little corner of tech.</h2>
+          </div>
+          <p class="section-intro">
+            Every project is a chance to learn, experiment, and make
+            something a little better than before.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-art art-lilac">✿</div>
+            <div class="project-body">
+              <div class="project-label">01 / Web design</div>
+              <h3>This portfolio</h3>
+              <p>
+                A personal website combining my interest in technology
+                with a design that feels more like me.
+              </p>
+              <a class="project-link" href="#home">You're looking at it ↗</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-art art-pink">✷</div>
+            <div class="project-body">
+              <div class="project-label">02 / Coming soon</div>
+              <h3>My next idea</h3>
+              <p>
+                A space for my next coding project. The goal is to build
+                something useful, thoughtful, and fun to explore.
+              </p>
+              <span class="project-link">In the works ✨</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-art art-yellow">♡</div>
+            <div class="project-body">
+              <div class="project-label">03 / Always learning</div>
+              <h3>Little experiments</h3>
+              <p>
+                Small ideas, new concepts, and experiments that help me
+                practise my skills and discover what I enjoy building.
+              </p>
+              <span class="project-link">More to come ↗</span>
+            </div>
+          </article>
+        </div>
+
+        <p class="project-note">
+          These cards are a starting point. Replace the placeholder projects
+          with real projects you've built, what you used to build them, and
+          links to their code or live demos.
+        </p>
+      </section>
+
+      <section class="reveal" id="skills">
+        <div class="section-kicker">My toolkit</div>
+        <h2>Learning as I go.</h2>
+        <p class="section-intro" style="margin-top: 16px;">
+          The tools and skills I'm developing along my journey.
+        </p>
+
+        <div class="skills-wrap">
+          <span class="skill">Problem solving ✳</span>
+          <span class="skill">HTML & CSS</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">Git & GitHub</span>
+          <span class="skill">Creative thinking</span>
+          <span class="skill">Always learning ♡</span>
+        </div>
+        <p class="project-note">
+          Only list technologies and skills you can honestly discuss in an interview.
+          Remove anything you haven't learned yet.
+        </p>
+      </section>
+
+      <section id="contact" class="reveal">
+        <div class="contact-box">
+          <div class="section-kicker">Your turn</div>
+          <h2>Have an idea? Let's make something cool.</h2>
+          <p>
+            I'm always happy to connect with people who enjoy learning,
+            creating, and exploring new ideas.
+          </p>
+          <a class="btn" href="mailto:YOUR_EMAIL_HERE">Say hello ✉</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a class="logo" href="#home">shanali<span>.</span></a>
+      <span>Made with curiosity and a little <span class="footer-heart">♡</span></span>
+      <a href="#home">Back to top ↑</a>
+    </footer>
   </div>
-</nav>
 
-<header class="hero">
-  <canvas id="stars"></canvas>
-  <div class="hero-content">
-    <div class="eyebrow">WELCOME TO MY LITTLE UNIVERSE</div>
-    <h1>Hi, I'm <span>Shanali.</span> ✨</h1>
-    <p class="intro">An SFU student exploring the world of technology, one project at a time. Welcome to my corner of the internet.</p>
+  <script>
+    // Light and dark mode
+    const themeToggle = document.getElementById("themeToggle");
 
-    <div class="world">
-      <button class="island" onclick="go('about')">
-        <span class="emoji">🏡</span><strong>About Me</strong><small>My story</small>
-      </button>
-      <button class="island" onclick="go('projects')">
-        <span class="emoji">🔮</span><strong>Projects</strong><small>Things I build</small>
-      </button>
-      <button class="island" onclick="go('skills')">
-        <span class="emoji">🌙</span><strong>My Skills</strong><small>What I learn</small>
-      </button>
-      <button class="island" onclick="go('contact')">
-        <span class="emoji">💌</span><strong>Contact</strong><small>Say hello</small>
-      </button>
-    </div>
-    <p class="hint">✧ Pick an island to explore ✧</p>
-    <p id="message" aria-live="polite"></p>
-  </div>
-</header>
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      themeToggle.textContent = isDark ? "☀️" : "🌙";
+      themeToggle.setAttribute(
+        "aria-label",
+        isDark ? "Switch to light theme" : "Switch to dark theme"
+      );
+    });
 
-<section id="about">
-  <div class="eyebrow">A LITTLE ABOUT ME</div>
-  <h2>Getting to know me 🌷</h2>
-  <p class="section-intro">I'm a student at Simon Fraser University interested in growing my computer science knowledge and creating things that make technology more useful and fun. I'm working towards a future in software development.</p>
-  <div class="cards">
-    <article class="card">
-      <h3>🎓 Education</h3>
-      <p>Simon Fraser University<br>Current program: General Studies<br>Exploring a future in Computing Science.</p>
-    </article>
-    <article class="card">
-      <h3>🌱 Currently growing</h3>
-      <p>Building projects, developing technical skills, and preparing for future software internship and co-op opportunities.</p>
-    </article>
-  </div>
-</section>
+    // Random little facts — personalise these to make them yours!
+    const facts = [
+      "I'm a Sri Lankan Canadian, and my background is part of my story. 🌷",
+      "Family and friends are some of my favourite parts of life. 🤍",
+      "I'm exploring how creativity and technology can work together. ✨",
+      "I'm still discovering new interests and skills — and that's the fun part. 🌱",
+      "There's a lot more to me than fits on one page. ♡"
+    ];
 
-<section id="projects">
-  <div class="eyebrow">MY CREATIVE CORNER</div>
-  <h2>Little things I've built 💜</h2>
-  <p class="section-intro">This is where my projects will live. I'll add my own work here as I build it.</p>
-  <div class="cards">
-    <article class="card">
-      <h3>🌌 My Interactive Portfolio</h3>
-      <p>A lavender-inspired personal website with clickable islands, animated stars, and a little digital world.</p>
-      <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
-      <p><strong>Status:</strong> First project in progress!</p>
-    </article>
-    <article class="card">
-      <h3>✨ Future Project</h3>
-      <p>I'll add another project here with a description of the problem, my solution, and what I learned.</p>
-      <span class="tag">Coming soon</span>
-    </article>
-  </div>
-</section>
+    let lastFact = -1;
 
-<section id="skills">
-  <div class="eyebrow">MY TOOLKIT</div>
-  <h2>Skills & learning ☁️</h2>
-  <p class="section-intro">My technical toolkit will grow as I complete coursework and build more projects.</p>
-  <div class="skills">
-    <span class="tag">HTML</span><span class="tag">CSS</span>
-    <span class="tag">JavaScript — learning</span>
-    <span class="tag">Problem solving</span><span class="tag">GitHub</span>
-  </div>
-  <p class="section-intro">I'll update this section to reflect my actual skills and experience.</p>
-</section>
+    document.getElementById("discoverBtn").addEventListener("click", () => {
+      let nextFact;
 
-<section id="contact">
-  <div class="eyebrow">LET'S CONNECT</div>
-  <h2>Send a little hello 💌</h2>
-  <p class="section-intro">Interested in connecting about projects, technology, or future opportunities? Find me on LinkedIn or GitHub.</p>
-  <a class="cta" href="https://github.com/" target="_blank" rel="noopener">Explore GitHub ↗</a>
-  <a class="cta" href="https://www.linkedin.com/" target="_blank" rel="noopener">Find me on LinkedIn ↗</a>
-  <p class="section-intro">Replace these links with your own profile URLs before sharing your portfolio.</p>
-</section>
+      do {
+        nextFact = Math.floor(Math.random() * facts.length);
+      } while (facts.length > 1 && nextFact === lastFact);
 
-<footer>Made with 💜 and a little bit of curiosity · © 2026 Shanali</footer>
+      lastFact = nextFact;
+      document.getElementById("funFact").textContent = facts[nextFact];
+    });
 
-<script>
-function go(id) {
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
-  document.getElementById('message').textContent =
-    '✦ Exploring: ' + id.charAt(0).toUpperCase() + id.slice(1) + ' ✦';
-}
-const canvas = document.getElementById('stars');
-const ctx = canvas.getContext('2d');
-let stars = [];
-function setup() {
-  const r = canvas.getBoundingClientRect();
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  canvas.width = r.width * dpr;
-  canvas.height = r.height * dpr;
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  stars = Array.from({length:75},()=>({
-    x:Math.random()*r.width,y:Math.random()*r.height,
-    size:Math.random()*2+.5,phase:Math.random()*6.28
-  }));
-}
-function draw(t) {
-  const r = canvas.getBoundingClientRect();
-  ctx.clearRect(0,0,r.width,r.height);
-  stars.forEach(s=>{
-    ctx.globalAlpha=.35+.65*(.5+.5*Math.sin(t*.001+s.phase));
-    ctx.fillStyle='#eee4ff';
-    ctx.fillRect(s.x,s.y,s.size,s.size);
-  });
-  ctx.globalAlpha=1;
-  requestAnimationFrame(draw);
-}
-window.addEventListener('resize',setup);
-setup();
-requestAnimationFrame(draw);
-</script>
+    // Gentle reveal animations as sections enter the screen
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealElements.forEach((element) => observer.observe(element));
+    } else {
+      revealElements.forEach((element) => element.classList.add("visible"));
+    }
+  </script>
 </body>
 </html>
