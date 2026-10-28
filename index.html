@@ -1,657 +1,451 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shanali Beligala | Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 
 <style>
 :root {
-  --bg:#f0efe9;
-  --fg:#171714;
-  --red:#ff3b27;
-  --line:#b9b8b0;
-  --muted:#77766f;
+  --bg:#f6f2fa;
+  --ink:#241e30;
+  --muted:#797184;
+  --purple:#8058d8;
+  --mint:#a5e6ce;
+  --pink:#f2b4d5;
+  --line:#e2d9ed;
 }
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; scroll-padding-top:20px; }
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
-  font-family:Inter,Arial,sans-serif;
-  transition:background .25s,color .25s;
-  overflow-x:hidden;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,Arial,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.wrap{width:min(1150px,calc(100% - 40px));margin:auto}
+.mono{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+nav{position:fixed;z-index:20;top:14px;left:50%;transform:translateX(-50%);width:min(1150px,calc(100% - 28px));padding:12px 18px;display:flex;justify-content:space-between;align-items:center;background:#ffffffd9;backdrop-filter:blur(18px);border:1px solid #ffffff;border-radius:17px;box-shadow:0 8px 35px #37234d12}
+.brand{font-weight:800;font-size:20px;letter-spacing:-1px}
+.brand span{color:var(--purple)}
+.links{display:flex;gap:5px}
+.links a{font-size:12px;padding:10px 12px;border-radius:10px;color:#655c71}
+.links a:hover{background:#eee6fb;color:var(--purple)}
+.nav-cta,.button{display:inline-block;padding:12px 17px;border-radius:12px;background:var(--purple);color:white;font-size:12px;font-weight:700;border:1px solid var(--purple);transition:.25s}
+.nav-cta:hover,.button:hover{transform:translateY(-3px);box-shadow:0 10px 25px #8058d833}
+.button.light{background:#ffffffa8;color:var(--ink);border-color:var(--line)}
+.menu{display:none;border:1px solid var(--line);background:white;border-radius:9px;padding:8px 12px}
+.hero{min-height:100vh;display:flex;align-items:center;padding:110px 0 55px;position:relative;background:radial-gradient(ellipse at 78% 35%,#dfd2ff 0%,transparent 34%),radial-gradient(ellipse at 8% 85%,#d9f4e8 0%,transparent 27%)}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:20px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+.dot{width:8px;height:8px;border-radius:50%;background:#40b88a;box-shadow:0 0 0 5px #40b88a20}
+h1{font-size:clamp(65px,8vw,112px);line-height:.87;letter-spacing:-9px;font-weight:600;margin:0 0 27px}
+h1 em{font-style:normal;color:var(--purple)}
+.intro{max-width:460px;color:var(--muted);line-height:1.9;font-size:15px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.quick-info{display:flex;gap:32px;margin-top:35px;flex-wrap:wrap}
+.quick-info div{display:grid;gap:7px}
+.quick-info strong{font-size:12px}
+.scene-wrap{height:570px;position:relative;min-width:0}
+#scene{width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+#scene:active{cursor:grabbing}
+.scene-card{position:absolute;top:9%;right:0;padding:14px 16px;background:#ffffffcc;backdrop-filter:blur(15px);border:1px solid white;border-radius:14px;box-shadow:0 10px 30px #35244a12;pointer-events:none}
+.scene-card strong{display:block;font-size:13px;margin-top:6px}
+.scene-card small{color:var(--muted)}
+.scene-tip{position:absolute;bottom:7%;left:0;padding:12px 14px;border-radius:12px;background:#ffffffcc;border:1px solid white;font-size:11px;color:var(--muted);pointer-events:none}
+.section{padding:100px 0;border-top:1px solid #e4dbea}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:35px}
+.section-head h2,.story-title{font-size:clamp(43px,6vw,70px);line-height:.98;letter-spacing:-5px;font-weight:600;margin:13px 0 0}
+.section-head p{max-width:390px;color:var(--muted);line-height:1.8;font-size:13px}
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.project{background:white;border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:.3s}
+.project:hover{transform:translateY(-6px);box-shadow:0 22px 55px #39244f15}
+.project-art{height:220px;position:relative;overflow:hidden;background:radial-gradient(circle at 60% 30%,#bda5fb,#f0e9fc 65%)}
+.project:nth-child(2) .project-art{background:radial-gradient(circle at 30% 30%,#a5e6ce,#e8f7ef 70%)}
+.art-label{position:absolute;top:17px;left:18px}
+.mock-window{position:absolute;top:25%;left:13%;right:13%;height:190px;background:#ffffffed;border:1px solid white;border-radius:12px;padding:17px;transform:rotate(-4deg);box-shadow:0 15px 40px #33214e20}
+.project:nth-child(2) .mock-window{transform:rotate(4deg)}
+.mock-dots{display:flex;gap:5px;border-bottom:1px solid #eee5f4;padding-bottom:12px}
+.mock-dots span{width:6px;height:6px;background:#c5b7d7;border-radius:50%}
+.mock-window h4{margin:15px 0 10px}
+.fake-line{height:7px;width:80%;background:#e9e2f0;border-radius:8px;margin:8px 0}
+.fake-line.short{width:45%}
+.fake-bars{display:flex;gap:7px;margin-top:14px}
+.fake-bars span{height:40px;flex:1;border-radius:6px;background:linear-gradient(140deg,#c3adfa,#f3edff)}
+.project:nth-child(2) .fake-bars span{background:linear-gradient(140deg,#8bd5b7,#effaf4)}
+.project-body{padding:23px}
+.project-body h3{margin:0;font-size:21px;letter-spacing:-1px}
+.project-body p,.body-copy{color:var(--muted);font-size:13px;line-height:1.9}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:17px}
+.tag{font:10px "DM Mono",monospace;padding:7px 9px;border:1px solid var(--line);border-radius:30px;color:var(--muted)}
+.story-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:65px}
+.story-title{margin-bottom:20px}
+.story-copy p{font-size:14px;color:var(--muted);line-height:2}
+.story-copy .lead{font-size:23px;line-height:1.55;letter-spacing:-.7px;color:var(--ink);margin-top:0}
+.quote{padding:23px;margin:28px 0;background:linear-gradient(100deg,#e8defb,#f8f5fc);border-left:3px solid var(--purple);border-radius:0 13px 13px 0;line-height:1.8}
+.timeline{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.role{padding:23px;background:white;border:1px solid var(--line);border-radius:17px}
+.role.full{grid-column:1/-1}
+.role h3{margin:0;font-size:16px}
+.org{color:var(--purple);font-size:12px;margin-top:7px}
+.role p,.role li{color:var(--muted);font-size:12px;line-height:1.9}
+.role ul{padding-left:18px}
+.role-head{display:flex;justify-content:space-between;gap:15px}
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.skill{background:linear-gradient(145deg,#fff,#f1ebf9);border:1px solid var(--line);border-radius:16px;padding:21px;min-height:145px}
+.skill-icon{font-size:22px;color:var(--purple)}
+.skill h3{font-size:14px;margin:14px 0 8px}
+.skill p{font-size:12px;line-height:1.8;color:var(--muted);margin:0}
+.community{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.community-card{background:white;border:1px solid var(--line);border-radius:17px;padding:25px}
+.stat{font-size:55px;font-weight:600;letter-spacing:-4px;color:#398b6a;margin:10px 0}
+.community-card p{font-size:13px;line-height:1.9;color:var(--muted)}
+.contact{padding:95px 0;background:radial-gradient(ellipse at 80% 20%,#d9c9fb,transparent 45%),#eee8f5}
+.contact-inner{display:flex;justify-content:space-between;align-items:end;gap:30px}
+.contact h2{font-size:clamp(55px,8vw,100px);line-height:.9;letter-spacing:-7px;margin:18px 0}
+.contact p{max-width:470px;color:var(--muted);font-size:14px;line-height:1.9}
+.footer{padding:24px 0;display:flex;justify-content:space-between;gap:15px;color:var(--muted);font-size:11px}
+.reveal{opacity:0;transform:translateY(18px);transition:.7s}
+.reveal.show{opacity:1;transform:none}
+#backtop{position:fixed;bottom:20px;right:20px;z-index:10;width:42px;height:42px;border-radius:13px;background:white;border:1px solid var(--line);display:grid;place-items:center;opacity:0;pointer-events:none;box-shadow:0 10px 25px #38224c12}
+#backtop.show{opacity:1;pointer-events:auto}
+@media(max-width:800px){
+ .hero-grid,.story-grid{grid-template-columns:1fr}
+ .scene-wrap{height:440px}
+ .skills{grid-template-columns:repeat(2,1fr)}
+ .section-head{align-items:start;flex-direction:column}
+ .contact-inner{align-items:start;flex-direction:column}
 }
-a { color:inherit; text-decoration:none; }
-button { font:inherit; cursor:pointer; }
-::selection { background:var(--red); color:white; }
-.wrap { width:min(1250px,91%); margin:auto; }
-.mono { font-family:"DM Mono",monospace; letter-spacing:.04em; text-transform:uppercase; }
-.red { color:var(--red); }
-
-/* HEADER */
-header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  min-height:72px;
-  border-bottom:1px solid var(--fg);
+@media(max-width:620px){
+ .links{display:none;position:absolute;top:60px;left:0;right:0;padding:12px;background:white;border:1px solid var(--line);border-radius:13px;flex-direction:column}
+ .links.open{display:flex}
+ .menu{display:block}
+ .nav-cta{display:none}
+ .hero{padding-top:115px}
+ h1{font-size:76px;letter-spacing:-6px}
+ .scene-wrap{height:340px}
+ .projects,.timeline,.community{grid-template-columns:1fr}
+ .role.full{grid-column:auto}
+ .skills{grid-template-columns:1fr 1fr}
+ .section{padding:75px 0}
+ .contact h2{letter-spacing:-4px}
+ .footer{flex-direction:column}
 }
-.brand {
-  font:1.4rem "Archivo Black",sans-serif;
-  letter-spacing:-1px;
-}
-.brand span { color:var(--red); }
-.nav {
-  display:flex;
-  align-items:center;
-  gap:22px;
-  font-size:.72rem;
-  font-weight:800;
-  text-transform:uppercase;
-}
-.nav a:hover { color:var(--red); }
-.theme-btn {
-  border:1px solid var(--fg);
-  background:transparent;
-  color:var(--fg);
-  padding:10px 12px;
-  font-size:.7rem;
-}
-.theme-btn:hover { background:var(--fg); color:var(--bg); }
-
-/* INTRO */
-.intro { padding:28px 0 65px; border-bottom:1px solid var(--fg); }
-.intro-top {
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding-bottom:15px;
-  border-bottom:1px solid var(--line);
-  font-size:10px;
-}
-.intro-layout {
-  display:grid;
-  grid-template-columns:.85fr 1.15fr;
-  gap:clamp(30px,6vw,80px);
-  align-items:center;
-  padding-top:42px;
-}
-.portrait {
-  min-height:440px;
-  position:relative;
-  overflow:hidden;
-  background:#d8d5cd;
-  border:1px solid var(--fg);
-}
-.portrait img {
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:2;
-}
-.photo-placeholder {
-  position:absolute;
-  inset:0;
-  padding:25px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  color:#171714;
-  background:linear-gradient(145deg,#e6e3db,#b8b5ac);
-}
-.photo-placeholder strong {
-  font:clamp(2.7rem,5vw,4.8rem) "Archivo Black",sans-serif;
-  line-height:.92;
-  letter-spacing:-.07em;
-}
-.photo-placeholder strong span { color:var(--red); }
-.photo-placeholder small { font-size:10px; }
-.photo-caption {
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:12px;
-  background:#171714;
-  color:white;
-  z-index:3;
-  font-size:9px;
-}
-.intro-status { font-size:10px; color:var(--muted); }
-.status-dot {
-  display:inline-block;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#4b9e6d;
-  margin-right:8px;
-}
-.intro h1 {
-  font:clamp(3.5rem,7vw,6.4rem) "Archivo Black",sans-serif;
-  line-height:.96;
-  letter-spacing:-.075em;
-  margin:25px 0;
-}
-.intro h1 span { color:var(--red); }
-.intro p { font-size:.94rem; line-height:1.9; max-width:540px; }
-.intro .muted { color:var(--muted); }
-.intro-buttons { display:flex; flex-wrap:wrap; gap:9px; margin-top:25px; }
-.btn {
-  display:inline-flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  padding:13px 15px;
-  border:1px solid var(--fg);
-  font-size:.74rem;
-  font-weight:800;
-  transition:.2s;
-}
-.btn:hover { background:var(--fg); color:var(--bg); transform:translateY(-3px); }
-.btn.primary { background:var(--red); color:white; border-color:var(--red); }
-.btn.primary:hover { background:var(--fg); border-color:var(--fg); }
-.intro-bottom {
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:28px;
-  padding-top:15px;
-  border-top:1px solid var(--line);
-  font-size:9px;
-}
-.intro-bottom span { color:var(--muted); }
-
-/* MOVING BANNER */
-.ticker { background:var(--red); color:white; overflow:hidden; padding:15px 0; }
-.ticker-track { display:flex; width:max-content; animation:move 28s linear infinite; }
-.ticker span {
-  white-space:nowrap;
-  padding:0 20px;
-  font:1.25rem "Archivo Black",sans-serif;
-}
-@keyframes move { to { transform:translateX(-50%); } }
-
-/* SECTIONS */
-section.content { padding:85px 0; border-bottom:1px solid var(--fg); }
-.section-head {
-  display:grid;
-  grid-template-columns:90px 1fr;
-  gap:20px;
-  margin-bottom:38px;
-}
-.number { font:11px "DM Mono",monospace; color:var(--red); padding-top:8px; }
-.section-head h2 {
-  font:clamp(2.7rem,6.5vw,6rem) "Archivo Black",sans-serif;
-  line-height:.91;
-  letter-spacing:-.075em;
-  margin:0;
-  text-transform:uppercase;
-}
-.section-head h2 em { color:var(--red); font-style:normal; }
-.lead { max-width:580px; color:var(--muted); line-height:1.8; font-size:.95rem; }
-.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:9%; }
-.about-big { font-size:clamp(1.3rem,2.2vw,2rem); line-height:1.5; }
-.about-big strong { background:var(--red); color:white; padding:0 4px; }
-.notes { border-top:1px solid var(--fg); }
-.note {
-  display:grid;
-  grid-template-columns:105px 1fr;
-  gap:14px;
-  padding:18px 0;
-  border-bottom:1px solid var(--line);
-}
-.note .mono { color:var(--muted); font-size:10px; padding-top:4px; }
-.note p { margin:0; font-size:.88rem; line-height:1.8; }
-.manifesto {
-  background:#171714;
-  color:#f0efe9;
-  margin-top:50px;
-  padding:clamp(25px,5vw,60px);
-}
-.manifesto .mono { color:var(--red); font-size:10px; }
-.manifesto blockquote {
-  font:clamp(2rem,6vw,5.6rem) "Archivo Black",sans-serif;
-  line-height:.98;
-  letter-spacing:-.07em;
-  margin:28px 0;
-}
-.manifesto blockquote span { color:var(--red); }
-
-/* PROJECTS */
-.project-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.project { border:1px solid var(--fg); transition:.25s; overflow:hidden; }
-.project:hover { transform:translateY(-5px); box-shadow:7px 7px 0 var(--red); }
-.project-art {
-  min-height:205px;
-  display:grid;
-  place-items:center;
-  position:relative;
-  overflow:hidden;
-  background:#e5defb;
-}
-.project:nth-child(2) .project-art { background:#f7d9df; }
-.project:nth-child(3) .project-art { background:#e6efbd; }
-.project:nth-child(4) .project-art { background:#f0dfc4; }
-.project-art .shape {
-  width:110px;
-  height:110px;
-  background:#9e82ee;
-  transform:rotate(-12deg);
-  box-shadow:18px 18px 0 #ffffff75;
-  transition:.4s;
-}
-.project:nth-child(2) .shape { background:#ef9fbd; border-radius:50%; }
-.project:nth-child(3) .shape { background:#b8d85e; border-radius:12px; }
-.project:hover .shape { transform:rotate(15deg) scale(1.15); border-radius:50%; }
-.art-label {
-  position:absolute;
-  top:14px;
-  left:14px;
-  background:#fffdf0;
-  color:#171714;
-  padding:8px 10px;
-  font:9px "DM Mono",monospace;
-}
-.art-symbol { position:absolute; font-size:2rem; font-weight:800; }
-.project-body { padding:22px; }
-.project-meta {
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-  color:var(--muted);
-  font:9px "DM Mono",monospace;
-}
-.project h3 { font:1.5rem "Archivo Black",sans-serif; margin:18px 0 10px; letter-spacing:-.04em; }
-.project p { font-size:.86rem; line-height:1.8; color:var(--muted); }
-.tags { display:flex; gap:6px; flex-wrap:wrap; }
-.tags span { border:1px solid var(--line); padding:7px 9px; font-size:10px; }
-.project-foot { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:20px; }
-.project-foot a { font-size:1.4rem; }
-.project-foot a:hover { color:var(--red); }
-
-/* VOLUNTEERING */
-.community-list { border-top:2px solid var(--fg); }
-.community-item {
-  display:grid;
-  grid-template-columns:48px 1fr auto;
-  align-items:center;
-  gap:18px;
-  padding:24px 8px;
-  border-bottom:1px solid var(--fg);
-  transition:.2s;
-}
-.community-item:hover { background:var(--red); color:white; padding-left:17px; padding-right:17px; }
-.community-num {
-  width:40px;
-  height:40px;
-  display:grid;
-  place-items:center;
-  border:1px solid var(--fg);
-  font:11px "DM Mono",monospace;
-}
-.community-item h3 { font:clamp(1.1rem,2.5vw,1.8rem) "Archivo Black",sans-serif; margin:8px 0; letter-spacing:-.04em; }
-.community-item p { margin:5px 0; font-size:.82rem; line-height:1.7; }
-.community-item .mono { font-size:10px; color:var(--red); }
-.community-item:hover .mono { color:white; }
-.community-detail { color:var(--muted); max-width:600px; }
-.community-item:hover .community-detail { color:white; }
-.raised { text-align:right; }
-.raised strong { display:block; font:clamp(1.4rem,3vw,2.4rem) "Archivo Black",sans-serif; }
-.raised span { font:9px "DM Mono",monospace; }
-
-/* SKILLS AND CERTIFICATIONS */
-.skill-layout { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
-.skill-layout h3 { font:clamp(1.8rem,3vw,2.8rem) "Archivo Black",sans-serif; line-height:1.05; letter-spacing:-.06em; }
-.skill-layout p { color:var(--muted); font-size:.9rem; line-height:1.8; }
-.skill-grid { display:flex; flex-wrap:wrap; gap:8px; align-content:start; }
-.skill { border:1px solid var(--fg); padding:12px 14px; font-size:.74rem; font-weight:700; transition:.2s; }
-.skill:hover { background:var(--fg); color:var(--bg); transform:translateY(-3px); }
-.skill.highlight { background:var(--red); color:white; border-color:var(--red); }
-.certs { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:32px; }
-.cert { position:relative; overflow:hidden; border:1px solid var(--fg); padding:22px; min-height:175px; }
-.cert .mono { color:var(--red); font-size:10px; }
-.cert h3 { font:1.2rem "Archivo Black",sans-serif; margin-top:28px; }
-.cert p { font-size:.8rem; line-height:1.7; color:var(--muted); }
-.cert .watermark { position:absolute; right:10px; bottom:-20px; font:5rem "Archivo Black",sans-serif; color:var(--red); opacity:.12; }
-
-/* RÉSUMÉ */
-.resume-box {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  padding:25px;
-  border:1px solid var(--fg);
-}
-.resume-box h3 { font:1.5rem "Archivo Black",sans-serif; margin:0 0 8px; }
-.resume-box p { font-size:.85rem; color:var(--muted); line-height:1.7; }
-.resume-link { background:var(--red); color:white; padding:14px 17px; font-size:.75rem; font-weight:800; white-space:nowrap; }
-.resume-link:hover { background:var(--fg); }
-
-/* CONTACT */
-.contact {
-  background:var(--red);
-  color:white;
-  padding:clamp(30px,7vw,80px);
-  margin-top:65px;
-}
-.contact h2 {
-  font:clamp(3.3rem,9vw,8.8rem) "Archivo Black",sans-serif;
-  line-height:.86;
-  letter-spacing:-.09em;
-  margin:30px 0;
-}
-.contact-bottom {
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:25px;
-  border-top:1px solid #ffffff75;
-  padding-top:20px;
-}
-.contact-bottom p { max-width:400px; font-size:.9rem; line-height:1.8; }
-.contact-links { display:flex; gap:8px; flex-wrap:wrap; }
-.contact-links a { background:var(--bg); color:var(--fg); padding:14px 16px; font-size:.75rem; font-weight:800; }
-.contact-links a:hover { background:var(--fg); color:white; }
-.contact-links a.outline { background:transparent; color:white; border:1px solid white; }
-.contact-links a.outline:hover { background:white; color:var(--fg); }
-
-footer {
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  flex-wrap:wrap;
-  padding:25px 0 30px;
-  font-size:10px;
-}
-footer .mono { color:var(--muted); }
-
-/* REVEAL ANIMATION */
-.reveal { opacity:0; transform:translateY(20px); transition:opacity .65s,transform .65s; }
-.reveal.visible { opacity:1; transform:translateY(0); }
-
-/* MOBILE */
-@media(max-width:720px) {
-  .nav { gap:10px; }
-  .nav a { display:none; }
-  .intro-layout,.about-grid,.skill-layout { grid-template-columns:1fr; gap:28px; }
-  .portrait { min-height:390px; }
-  .intro h1 { font-size:clamp(3.7rem,13vw,5.5rem); }
-  section.content { padding:62px 0; }
-  .section-head { grid-template-columns:35px 1fr; gap:12px; }
-  .project-grid,.certs { grid-template-columns:1fr; }
-  .community-item { grid-template-columns:38px 1fr; gap:12px; }
-  .community-num { width:34px; height:34px; }
-  .raised { grid-column:2; text-align:left; }
-  .resume-box,.contact-bottom { align-items:flex-start; flex-direction:column; }
-  .intro-buttons .btn { flex:1 1 190px; }
-}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
-  .reveal { opacity:1; transform:none; }
-}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none}*{transition:none!important}}
 </style>
 </head>
 
 <body>
-<div class="wrap">
-
-<header>
-  <a href="#home" class="brand">SB<span>®</span></a>
-  <nav class="nav">
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#experience">Initiatives</a>
+<nav>
+  <a href="#home" class="brand">shanali<span>.</span></a>
+  <div class="links" id="links">
+    <a href="#work">Projects</a>
+    <a href="#story">My approach</a>
+    <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
-    <button class="theme-btn" id="themeButton">DARK MODE ↗</button>
-  </nav>
-</header>
+    <a href="#community">Beyond code</a>
+  </div>
+  <a class="nav-cta" href="#contact">Let's connect ↗</a>
+  <button class="menu" id="menu">☰</button>
+</nav>
 
 <main>
-<section class="intro" id="home">
-  <div class="intro-top mono">
-    <span>PORTFOLIO · 2026</span>
-    <span>COMPUTER SCIENCE / SFU</span>
-  </div>
-  <div class="intro-layout">
-    <div class="portrait">
-      <img src="images/shanali.jpg" alt="Portrait of Shanali" onerror="this.style.display='none'">
-      <div class="photo-placeholder">
-        <span class="mono">A LITTLE INTRODUCTION</span>
-        <strong>SHANALI<br>BELIGALA<span>.</span></strong>
-        <small class="mono">STUDENT · CREATOR · VOLUNTEER</small>
-      </div>
-      <div class="photo-caption mono">FIG. 01 — THE PERSON BEHIND THE WORK</div>
-    </div>
-
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
     <div>
-      <div class="intro-status mono"><span class="status-dot"></span>WELCOME TO MY PORTFOLIO</div>
-      <h1>Hey, I'm<br><span>Shanali.</span></h1>
-      <p>I'm a Computer Science student at Simon Fraser University interested in technology, creative problem-solving, and finding new ways to turn ideas into something meaningful.</p>
-      <p class="muted">Beyond the screen, I'm passionate about giving back to my community, supporting meaningful causes, and continuing to learn and grow.</p>
-
-      <div class="intro-buttons">
-        <a class="btn primary" href="#projects">Explore projects ↗</a>
-        <a class="btn" href="#experience">Volunteering ↗</a>
-        <a class="btn" href="#skills">Skills & certificates ↗</a>
-        <a class="btn" href="#resume">My résumé ↗</a>
+      <div class="eyebrow mono"><span class="dot"></span> SFU · Technology · British Columbia</div>
+      <h1>Ideas in<br><em>motion.</em></h1>
+      <p class="intro">I'm Shanali — a student interested in technology, thoughtful design, and building digital tools that make everyday tasks easier. This portfolio is a little different by design: it's a place to explore, not just scroll through a résumé.</p>
+      <div class="actions">
+        <a class="button" href="#work">Explore my work ↘</a>
+        <a class="button light" href="#story">My story ↓</a>
       </div>
-      <div class="intro-bottom mono">
-        <span>SRI LANKAN CANADIAN · SFU</span>
-        <a href="#about">GET TO KNOW ME ↓</a>
+      <div class="quick-info">
+        <div><span class="mono">Currently</span><strong>Building & learning</strong></div>
+        <div><span class="mono">Interested in</span><strong>Software · UX · Useful tools</strong></div>
       </div>
+    </div>
+    <div class="scene-wrap">
+      <canvas id="scene" aria-label="Interactive 3D sphere. Drag to rotate and click to change colour."></canvas>
+      <div class="scene-card"><span class="mono">INTERACTIVE OBJECT / 001</span><strong id="orbStatus">A thought taking shape</strong><small>Drag · Move · Click</small></div>
+      <div class="scene-tip">✳ &nbsp; Grab the sphere. Rotate it. Change its colour.</div>
     </div>
   </div>
 </section>
 
-<div class="ticker"><div class="ticker-track">
-  <span>CURIOUS BY NATURE ✳ LEARNING BY DOING ✳ COMMUNITY MATTERS ✳ </span>
-  <span>CURIOUS BY NATURE ✳ LEARNING BY DOING ✳ COMMUNITY MATTERS ✳ </span>
-</div></div>
-
-<section class="content reveal" id="about">
-  <div class="section-head">
-    <div class="number">01 / ABOUT</div>
-    <h2>THE SHORT<br>VERSION IS <em>NEVER</em><br>THE WHOLE STORY.</h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-big">I'm Shanali. I'm studying computer science, figuring out what I want to build, and finding my own way of doing things. <strong>There's more going on here</strong> than a degree, a list of skills, or a headline.</div>
-    <div class="notes">
-      <div class="note"><span class="mono">THE LOGIC</span><p><strong>Technology.</strong> Learning to turn problems into solutions, ideas into code, and concepts into real things.</p></div>
-      <div class="note"><span class="mono">THE HUMAN</span><p><strong>My people.</strong> Family, friends, shared moments, and the little things that make life feel like yours.</p></div>
-      <div class="note"><span class="mono">THE CONTEXT</span><p><strong>My background.</strong> I'm Sri Lankan Canadian. That's one part of my perspective, not the whole definition of me.</p></div>
-      <div class="note"><span class="mono">THE PLAN</span><p><strong>Keep going.</strong> Learn more, try things, build things, and leave room for surprises.</p></div>
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="mono">01 / Selected work</div><h2>Built to be useful.</h2></div>
+      <p>I like turning everyday questions into practical tools. These projects reflect how I approach problems: understand the need, organize the information, and build something that helps.</p>
     </div>
-  </div>
-  <div class="manifesto">
-    <div class="mono">A PERSONAL MANIFESTO / 001</div>
-    <blockquote>I DON'T NEED TO HAVE IT ALL FIGURED OUT TO <span>MAKE SOMETHING REAL.</span></blockquote>
-    <div class="mono">CURRENT STATUS: LEARNING IN PUBLIC</div>
-  </div>
-</section>
-
-<section class="content reveal" id="projects">
-  <div class="section-head">
-    <div class="number">02 / PROJECTS</div>
-    <h2>BUILT WITH<br><em>CURIOSITY.</em></h2>
-  </div>
-  <p class="lead">A collection of technical projects, experiments, and things I've created while developing my skills.</p>
-
-  <div class="project-grid">
-    <article class="project">
-      <div class="project-art"><span class="art-label">01 / WEB DEVELOPMENT</span><div class="shape"></div><span class="art-symbol">⌘</span></div>
-      <div class="project-body">
-        <div class="project-meta"><span>PERSONAL WEBSITE</span><span>HTML / CSS / JS</span></div>
-        <h3>My Portfolio</h3>
-        <p>A custom-designed portfolio exploring web development, responsive layouts, and interactive elements.</p>
-        <div class="project-foot"><div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div><a href="https://github.com/shanali2005beligala-cmd/my-portfolio" target="_blank" rel="noopener">↗</a></div>
-      </div>
-    </article>
-
-    <article class="project">
-      <div class="project-art"><span class="art-label">02 / YOUR NEXT PROJECT</span><div class="shape"></div><span class="art-symbol">{ }</span></div>
-      <div class="project-body">
-        <div class="project-meta"><span>COMING SOON</span><span>IN DEVELOPMENT</span></div>
-        <h3>Project Two</h3>
-        <p>Replace this with a real programming project, the problem it solves, the technologies you used, and what you learned.</p>
-        <div class="project-foot"><div class="tags"><span>Your tech stack</span></div></div>
-      </div>
-    </article>
-
-    <article class="project">
-      <div class="project-art"><span class="art-label">03 / FUTURE BUILD</span><div class="shape"></div><span class="art-symbol">✳</span></div>
-      <div class="project-body">
-        <div class="project-meta"><span>COMING SOON</span><span>EXPERIMENT</span></div>
-        <h3>Project Three</h3>
-        <p>Showcase another real project, such as an application, useful tool, or creative coding experiment.</p>
-        <div class="project-foot"><div class="tags"><span>Your tech stack</span></div></div>
-      </div>
-    </article>
-  </div>
-  <p class="lead">Project Two and Three are placeholders. Replace them with real projects before applying for internships.</p>
-</section>
-
-<section class="content reveal" id="experience">
-  <div class="section-head">
-    <div class="number">03 / INITIATIVES</div>
-    <h2>GOOD WORK<br>BEYOND THE <em>SCREEN.</em></h2>
-  </div>
-  <p class="lead">Giving back, supporting causes, and contributing to my community are important parts of my journey.</p>
-  <div class="community-list">
-    <article class="community-item">
-      <div class="community-num">01</div>
-      <div><div class="mono">COMMUNITY VOLUNTEERING</div><h3>Adopt-a-Free-Little-Library</h3><p>City of Coquitlam</p><p class="community-detail">Community volunteering supporting a local free little library initiative.</p></div>
-    </article>
-    <article class="community-item">
-      <div class="community-num">02</div>
-      <div><div class="mono">COMMUNITY VOLUNTEERING</div><h3>Adopt-a-SPOT</h3><p>City of Port Coquitlam</p><p class="community-detail">Community involvement through the Adopt-a-SPOT program.</p></div>
-    </article>
-    <article class="community-item">
-      <div class="community-num">03</div>
-      <div><div class="mono">FUNDRAISING</div><h3>BC SPCA Bottle Drive</h3><p>Supporting animal welfare</p><p class="community-detail">Helped organize a bottle drive that raised $500 for the BC SPCA.</p></div>
-      <div class="raised"><strong>$500</strong><span>RAISED</span></div>
-    </article>
-    <article class="community-item">
-      <div class="community-num">04</div>
-      <div><div class="mono">FUNDRAISING</div><h3>BC Cancer Foundation</h3><p>Supporting cancer research and care</p><p class="community-detail">Personal fundraising campaign using community outreach and social media.</p></div>
-      <div class="raised"><strong>$2,550</strong><span>RAISED</span></div>
-    </article>
+    <div class="projects">
+      <article class="project reveal">
+        <div class="project-art"><span class="art-label mono">PROJECT 01 / IN PROGRESS</span><div class="mock-window"><div class="mock-dots"><span></span><span></span><span></span></div><h4>Applications, organized.</h4><div class="fake-line"></div><div class="fake-line short"></div><div class="fake-bars"><span></span><span></span><span></span></div></div></div>
+        <div class="project-body"><h3>Job Application Tracker</h3><p>A web application in progress to organize job applications in one place, including company names, job titles, application dates, and statuses. Search and filtering features are planned to make tracking progress easier.</p><div class="tags"><span class="tag">WEB APP</span><span class="tag">IN PROGRESS</span><span class="tag">ORGANIZATION</span></div></div>
+      </article>
+      <article class="project reveal">
+        <div class="project-art"><span class="art-label mono">PROJECT 02 / BUILT</span><div class="mock-window"><div class="mock-dots"><span></span><span></span><span></span></div><h4>Know where your time goes.</h4><div class="fake-line"></div><div class="fake-line short"></div><div class="fake-bars"><span></span><span></span><span></span></div></div></div>
+        <div class="project-body"><h3>Work Hours & Income Tracker</h3><p>A web application for tracking daily and monthly work hours and earnings, including gross income and estimated take-home pay after tax deductions.</p><div class="tags"><span class="tag">WEB APP</span><span class="tag">CALCULATIONS</span><span class="tag">BUILT</span></div></div>
+      </article>
+    </div>
+    <p class="mono" style="margin-top:20px">Add your GitHub repository links to these project cards when ready.</p>
   </div>
 </section>
 
-<section class="content reveal" id="skills">
-  <div class="section-head">
-    <div class="number">04 / SKILLS</div>
-    <h2>ALWAYS<br><em>LEARNING.</em></h2>
-  </div>
-  <div class="skill-layout">
+<section class="section" id="story">
+  <div class="wrap story-grid">
     <div>
-      <div class="mono red">MY TOOLKIT</div>
-      <h3>Technical skills and strengths.</h3>
-      <p>A mix of technical learning, creative thinking, and skills developed through studies and community involvement.</p>
+      <div class="mono">02 / The thinking behind it</div>
+      <h2 class="story-title">Curiosity should be something you can explore.</h2>
+      <p class="body-copy">The interactive sphere is more than decoration. It represents an idea before it settles into a final shape.</p>
     </div>
-    <div class="skill-grid">
-      <span class="skill highlight">Problem solving</span>
-      <span class="skill">HTML & CSS</span>
-      <span class="skill">JavaScript</span>
-      <span class="skill">GitHub</span>
-      <span class="skill">Google UX Design</span>
-      <span class="skill">Communication</span>
-      <span class="skill">Teamwork</span>
-      <span class="skill">English & Sinhala</span>
+    <div class="story-copy">
+      <p class="lead">I wanted my portfolio to feel less like a document and more like stepping into a small digital world.</p>
+      <p>You can grab the sphere, rotate it, and change its colour. That interaction reflects how I like to approach learning: look at an idea from different angles, experiment, and gradually make something useful from it.</p>
+      <p>I also wanted the design to show a little personality without hiding the important details. My projects, experience, skills, and community involvement are all easy to find, but the experience feels like my own.</p>
+      <div class="quote">“I don't just want to show what I've made. I want to show the curiosity that made me start.”</div>
+      <p>This portfolio will keep evolving as I learn, build new projects, and discover what I want to explore next.</p>
     </div>
-  </div>
-  <p class="lead">Keep only the technical skills you can confidently demonstrate or discuss.</p>
-
-  <div class="section-head" style="margin-top:65px">
-    <div class="number">05 / CERTIFICATES</div>
-    <h2>CERTIFIED &<br><em>CURIOUS.</em></h2>
-  </div>
-  <div class="certs">
-    <article class="cert"><div class="mono">JUNE 2026</div><h3>Google UX Design</h3><p>Google UX Design Professional Certificate</p><span class="watermark">UX</span></article>
-    <article class="cert"><div class="mono">AUGUST 2022</div><h3>Autism Awareness</h3><p>Autism Awareness for Recreation Leaders Certificate</p><span class="watermark">AA</span></article>
-    <article class="cert"><div class="mono">APRIL 2026</div><h3>FOODSAFE Level 1</h3><p>Food safety certification</p><span class="watermark">FS</span></article>
   </div>
 </section>
 
-<section class="content reveal" id="resume">
-  <div class="section-head">
-    <div class="number">06 / RÉSUMÉ</div>
-    <h2>THE DETAILS.<br><em>ONE PAGE.</em></h2>
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="mono">03 / Experience</div><h2>People, precision<br>& responsibility.</h2></div>
+      <p>My experience outside technology has helped me build the communication, attention to detail, and reliability that I bring to my projects.</p>
+    </div>
+    <div class="timeline">
+      <article class="role reveal"><div class="role-head"><div><h3>Information Officer</h3><div class="org">Provincial Election · British Columbia</div></div><span class="mono">Oct 2026</span></div><p>Helped voters navigate the voting process by providing clear information and following established procedures.</p><ul><li>Communicated information professionally.</li><li>Followed election procedures and guidance.</li><li>Supported a calm, service-focused environment.</li></ul></article>
+      <article class="role reveal"><div class="role-head"><div><h3>Ballot Issuing Officer</h3><div class="org">Municipal Election · Port Moody</div></div><span class="mono">Oct 2026</span></div><p>Supported the municipal election process and assisted with ballot issuing procedures.</p><ul><li>Followed instructions carefully.</li><li>Handled responsibilities accurately and discreetly.</li><li>Helped maintain an organized voting environment.</li></ul></article>
+      <article class="role full reveal"><div class="role-head"><div><h3>Noon Hour Supervisor</h3><div class="org">School District No. 43 · Coquitlam</div></div><span class="mono">2026 — Present</span></div><p>Supervise elementary school students during lunch, supporting safety, inclusion, and respectful interactions.</p><ul><li>Monitor student safety and respond appropriately to minor incidents.</li><li>Encourage positive behaviour and follow school procedures.</li><li>Work with school staff to maintain a supportive environment.</li></ul></article>
+      <article class="role full reveal"><div class="role-head"><div><h3>Finishing Operator</h3><div class="org">Multi Action Vancouver</div></div><span class="mono">2024 — Present</span></div><p>Prepare orders for shipment by checking specifications, selecting labels, assembling packages, and completing quality checks.</p><ul><li>Verify order details, quantities, and packaging requirements.</li><li>Check finished orders for accuracy before dispatch.</li><li>Maintain an organized and safe work area.</li></ul></article>
+    </div>
   </div>
-  <div class="resume-box">
-    <div><h3>Shanali Beligala — Résumé</h3><p>Education, volunteering, fundraising, certifications, and experience.</p></div>
-    <a class="resume-link" href="resume.pdf" target="_blank" rel="noopener">OPEN RÉSUMÉ ↗</a>
-  </div>
-  <p class="lead">Upload your PDF to the main repository folder and name it exactly resume.pdf for the button to work.</p>
 </section>
 
-<section class="contact reveal" id="contact">
-  <div class="mono">07 / LET'S CONNECT</div>
-  <h2>LET'S SEE<br>WHAT'S <span style="color:#171714">NEXT.</span></h2>
-  <div class="contact-bottom">
-    <p>Interested in my projects, community involvement, or potential opportunities? I'd love to connect.</p>
-    <div class="contact-links">
-      <a href="mailto:YOUR_EMAIL_HERE">EMAIL ME ↗</a>
-      <a class="outline" href="YOUR_LINKEDIN_URL" target="_blank" rel="noopener">LINKEDIN ↗</a>
-      <a class="outline" href="https://github.com/shanali2005beligala-cmd" target="_blank" rel="noopener">GITHUB ↗</a>
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head"><div><div class="mono">04 / Toolkit</div><h2>What I bring.</h2></div><p>A mix of foundational technical skills and practical strengths developed through projects, work, and volunteering.</p></div>
+    <div class="skills">
+      <div class="skill reveal"><div class="skill-icon">⌘</div><h3>Programming</h3><p>Python, Java, and C++ — foundational programming experience.</p></div>
+      <div class="skill reveal"><div class="skill-icon">◈</div><h3>Product & UX</h3><p>Google UX Design Professional Certificate.</p></div>
+      <div class="skill reveal"><div class="skill-icon">⌁</div><h3>Information</h3><p>Data entry, organization, research, and verification.</p></div>
+      <div class="skill reveal"><div class="skill-icon">◎</div><h3>Communication</h3><p>Collaboration, adaptability, and clear communication.</p></div>
+      <div class="skill reveal"><div class="skill-icon">▤</div><h3>Productivity tools</h3><p>Microsoft Office and Google Workspace.</p></div>
+      <div class="skill reveal"><div class="skill-icon">↗</div><h3>Problem-solving</h3><p>Analytical reasoning and attention to detail.</p></div>
+      <div class="skill reveal"><div class="skill-icon">⌬</div><h3>Cybersecurity</h3><p>Google Cybersecurity Professional Certificate — in progress.</p></div>
+      <div class="skill reveal"><div class="skill-icon">✳</div><h3>Languages</h3><p>Fluent in English and Sinhala.</p></div>
     </div>
+  </div>
+</section>
+
+<section class="section" id="community">
+  <div class="wrap">
+    <div class="section-head"><div><div class="mono">05 / Beyond the screen</div><h2>Community matters.</h2></div><p>Some of the work I'm proud of isn't software. It's showing up, organizing, and contributing to the community around me.</p></div>
+    <div class="community">
+      <article class="community-card reveal"><div class="mono">FUNDRAISING / 01</div><div class="stat">$2,550</div><h3>BC Cancer Foundation</h3><p>Raised funds through community outreach and promotion to support cancer research and patient care.</p></article>
+      <article class="community-card reveal"><div class="mono">FUNDRAISING / 02</div><div class="stat">$500</div><h3>BC SPCA Bottle Drive</h3><p>Helped raise funds for animal welfare through a community bottle drive.</p></article>
+      <article class="community-card reveal"><div class="mono">VOLUNTEERING / 03</div><h3>Adopt-a-Free-Little-Library</h3><p>City of Coquitlam · Community volunteering to support access to books and neighbourhood connection.</p></article>
+      <article class="community-card reveal"><div class="mono">VOLUNTEERING / 04</div><h3>Adopt-a-SPOT</h3><p>City of Port Coquitlam · Helping care for local public spaces.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-inner">
+    <div><div class="mono">06 / Contact</div><h2>Let's make<br>something useful.</h2><p>I'm interested in opportunities to keep learning, contribute to meaningful work, and build experiences that solve real problems.</p></div>
+    <div class="actions"><a class="button" href="mailto:shanali2005beligala@gmail.com">Email me ↗</a><a class="button light" href="#home">Back to the top ↑</a></div>
   </div>
 </section>
 </main>
 
-<footer>
-  <span class="brand">SB<span>®</span></span>
-  <span class="mono">A WORK IN PROGRESS — LIKE EVERYONE ELSE</span>
-  <a class="mono" href="#home">BACK TO TOP ↑</a>
+<footer class="wrap footer">
+  <span>© <span id="year"></span> Shanali Beligala</span>
+  <span>Designed with intention · Built to keep evolving</span>
+  <span>Port Coquitlam, BC</span>
 </footer>
-</div>
+<a href="#home" id="backtop">↑</a>
 
 <script>
-const themeButton=document.getElementById("themeButton");
-themeButton.addEventListener("click",()=>{
-  const root=document.documentElement;
-  const dark=root.dataset.theme==="dark";
-  if(dark){
-    root.style.setProperty("--bg","#f0efe9");
-    root.style.setProperty("--fg","#171714");
-    root.style.setProperty("--line","#b9b8b0");
-    root.style.setProperty("--muted","#77766f");
-    root.dataset.theme="light";
-    themeButton.textContent="DARK MODE ↗";
-  }else{
-    root.style.setProperty("--bg","#171714");
-    root.style.setProperty("--fg","#f0efe9");
-    root.style.setProperty("--line","#55544f");
-    root.style.setProperty("--muted","#b5b4ac");
-    root.dataset.theme="dark";
-    themeButton.textContent="LIGHT MODE ↗";
+const canvas = document.getElementById("scene");
+const statusLabel = document.getElementById("orbStatus");
+let scene, camera, renderer, orbGroup, orb, particles;
+let ringA, ringB, dragging = false, lastX = 0, lastY = 0;
+let rotX = 0, rotY = 0, colourIndex = 0;
+
+function init3D(){
+  if(!window.THREE){
+    statusLabel.textContent = "Please connect to the internet to load 3D";
+    return;
   }
+
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(42,1,0.1,100);
+  camera.position.z = 7.4;
+
+  renderer = new THREE.WebGLRenderer({
+    canvas:canvas, alpha:true, antialias:true
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setClearColor(0x000000,0);
+
+  orbGroup = new THREE.Group();
+  scene.add(orbGroup);
+
+  orb = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.38,5),
+    new THREE.MeshPhysicalMaterial({
+      color:0x9e82ed, metalness:.2, roughness:.2,
+      clearcoat:1, clearcoatRoughness:.12
+    })
+  );
+  orbGroup.add(orb);
+
+  const wire = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.43,2),
+    new THREE.MeshBasicMaterial({
+      color:0x8058d8, wireframe:true,
+      transparent:true, opacity:.25
+    })
+  );
+  orbGroup.add(wire);
+
+  ringA = new THREE.Mesh(
+    new THREE.TorusGeometry(1.92,.012,8,180),
+    new THREE.MeshBasicMaterial({color:0x8058d8})
+  );
+  ringA.rotation.set(.9,.25,.2);
+  orbGroup.add(ringA);
+
+  ringB = new THREE.Mesh(
+    new THREE.TorusGeometry(2.2,.009,8,180),
+    new THREE.MeshBasicMaterial({color:0x46a982})
+  );
+  ringB.rotation.set(1.25,-.45,.5);
+  orbGroup.add(ringB);
+
+  const count = 850;
+  const positions = new Float32Array(count*3);
+
+  for(let i=0;i<count;i++){
+    const r=2.5+Math.random()*2.2;
+    const a=Math.random()*Math.PI*2;
+    const b=Math.acos(2*Math.random()-1);
+    positions[i*3]=r*Math.sin(b)*Math.cos(a);
+    positions[i*3+1]=r*Math.sin(b)*Math.sin(a);
+    positions[i*3+2]=r*Math.cos(b);
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position",new THREE.BufferAttribute(positions,3));
+  particles = new THREE.Points(
+    geometry,
+    new THREE.PointsMaterial({
+      color:0x9b7bdd,size:.025,transparent:true,opacity:.8
+    })
+  );
+  scene.add(particles);
+
+  scene.add(new THREE.AmbientLight(0xffffff,2));
+  const light1=new THREE.PointLight(0xffffff,30);
+  light1.position.set(3,4,5);
+  scene.add(light1);
+
+  const light2=new THREE.PointLight(0xa4f0d3,22);
+  light2.position.set(-4,-2,2);
+  scene.add(light2);
+
+  resize3D();
+  window.addEventListener("resize",resize3D);
+
+  canvas.addEventListener("pointerdown",e=>{
+    dragging=true;
+    lastX=e.clientX;
+    lastY=e.clientY;
+    canvas.setPointerCapture(e.pointerId);
+    statusLabel.textContent="You're shaping the idea";
+  });
+
+  canvas.addEventListener("pointermove",e=>{
+    if(!dragging)return;
+    rotY+=(e.clientX-lastX)*.009;
+    rotX+=(e.clientY-lastY)*.009;
+    lastX=e.clientX;
+    lastY=e.clientY;
+  });
+
+  canvas.addEventListener("pointerup",()=>dragging=false);
+  canvas.addEventListener("pointercancel",()=>dragging=false);
+
+  canvas.addEventListener("click",()=>{
+    const colours=[0x9e82ed,0xf0a8d0,0x82d8b8,0xf0bc7e];
+    const messages=[
+      "A thought taking shape",
+      "A new perspective",
+      "Finding a connection",
+      "Testing a possibility"
+    ];
+    colourIndex=(colourIndex+1)%colours.length;
+    orb.material.color.setHex(colours[colourIndex]);
+    statusLabel.textContent=messages[colourIndex];
+  });
+
+  animate3D();
+}
+
+function resize3D(){
+  if(!renderer)return;
+  const rect=canvas.parentElement.getBoundingClientRect();
+  renderer.setSize(rect.width,rect.height,false);
+  camera.aspect=rect.width/rect.height;
+  camera.updateProjectionMatrix();
+}
+
+function animate3D(){
+  requestAnimationFrame(animate3D);
+  if(!renderer)return;
+  const t=performance.now()*.00025;
+  orbGroup.rotation.y=rotY+(dragging?0:t*.55);
+  orbGroup.rotation.x=rotX+Math.sin(t*1.8)*.13;
+  orbGroup.rotation.z=Math.sin(t)*.07;
+  ringA.rotation.z+=dragging?0:.0015;
+  ringB.rotation.x+=dragging?0:.001;
+  particles.rotation.y=-t*.18;
+  renderer.render(scene,camera);
+}
+
+try{init3D()}catch(error){
+  console.error(error);
+  statusLabel.textContent="3D is unavailable in this browser";
+}
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+document.querySelectorAll(".links a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    document.getElementById("links").classList.remove("open");
+  });
 });
 
-if("IntersectionObserver" in window){
-  const observer=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },{threshold:.08});
-  document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-}else{
-  document.querySelectorAll(".reveal").forEach(el=>el.classList.add("visible"));
-}
+document.getElementById("menu").addEventListener("click",()=>{
+  document.getElementById("links").classList.toggle("open");
+});
+
+window.addEventListener("scroll",()=>{
+  document.getElementById("backtop").classList.toggle("show",window.scrollY>500);
+});
 </script>
 </body>
 </html>
